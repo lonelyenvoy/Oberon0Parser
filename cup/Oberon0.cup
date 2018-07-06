@@ -1,0 +1,94 @@
+package oberon_grammar;
+
+import java.io.IOException;
+
+parser code
+{:
+    private Oberon0Lexer lexer;
+    private File file;
+    public Parser(File file) {
+        this();
+        this.file = file;
+        try {
+            lexer = new Oberon0Lexer(new FileReader(file));
+        } catch (IOException exception) {
+            throw new RuntimeException("Unable to open file \"" + file + "\"");
+        }
+    }
+:}
+
+scan with
+{:
+    return lexer.yylex();
+:}
+
+
+terminal MODULE, BEGIN, END, CONST, TYPE, VAR, PROCEDURE, ARRAY, OF, RECORD;
+terminal WHILE, DO, IF, THEN, ELSIF, ELSE;
+terminal SEMICOLON, COMMA;
+terminal ADD, SUBTRACT, MULTIPLY, DIVIDE, MOD;
+terminal AND, OR, NOT;
+terminal EQUAL, NOT_EQUAL, LESS, LESS_OR_EQUAL, GREATER, GREATER_OR_EQUAL;
+terminal LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET;
+terminal ASSIGN;
+terminal LEFT_ROUND_BRACKET, RIGHT_ROUND_BRACKET, DOT, COLON;
+terminal String IDENTIFIER;
+terminal String INTEGER;
+
+non terminal module;                        // ok
+non terminal moduleBeginSection;            // ok
+non terminal statementSequence;
+non terminal declarations;                  // ok
+non terminal constDeclaration;              // ok
+non terminal constIdentifierDeclaration;    // ok
+non terminal typeDeclaration;
+non terminal typeIdentifierDeclaration;
+non terminal varDeclaration;
+non terminal varIdentifierDeclaration;
+non terminal procedureDeclaration;
+non terminal expression;
+
+start with module;
+
+
+module                      ::= MODULE IDENTIFIER:id1 SEMICOLON declarations
+                                moduleBeginSection
+                                END IDENTIFIER:id2
+                                {:
+
+                                :}
+                            ;
+moduleBeginSection          ::= BEGIN statementSequence
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+declarations                ::= constDeclaration
+                                typeDeclaration
+                                varDeclaration
+                                procedureDeclaration
+                                {:
+
+                                :}
+                            ;
+constDeclaration            ::= CONST constIdentifierDeclaration
+                                {:
+
+                                :}
+                            ;
+constIdentifierDeclaration  ::= IDENTIFIER EQUAL expression SEMICOLON constIdentifierDeclaration
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+
+
+
