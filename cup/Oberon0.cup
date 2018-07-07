@@ -50,8 +50,14 @@ non terminal procedureDeclaration;          // ok
 non terminal expression;
 non terminal type;
 non terminal identifierList;
-non terminal procedureHeading;
-non terminal procedureBody;
+non terminal procedureHeading;              // ok
+non terminal procedureBody;                 // ok
+non terminal formalParameters;              // ok
+non terminal procedureBodyBeginSection;     // ok
+non terminal wrappedFormalParameters;       // ok
+non terminal formalParameterSections;       // ok
+non terminal formalParameterSection;
+
 
 
 start with module;
@@ -145,6 +151,54 @@ procedureDeclarations       ::= procedureDeclaration SEMICOLON procedureDeclarat
                                 :}
                             ;
 procedureDeclaration        ::= procedureHeading SEMICOLON procedureBody
+                                {:
+
+                                :}
+                            ;
+procedureHeading            ::= PROCEDURE IDENTIFIER wrappedFormalParameters
+                                {:
+
+                                :}
+                            ;
+procedureBody               ::= declarations
+                                procedureBodyBeginSection
+                                END IDENTIFIER
+                                {:
+
+                                :}
+                            ;
+procedureBodyBeginSection   ::= BEGIN statementSequence
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+wrappedFormalParameters     ::= LEFT_ROUND_BRACKET formalParameters RIGHT_ROUND_BRACKET
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+formalParameters            ::= formalParameterSection formalParameterSections
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+formalParameterSections     ::= SEMICOLON formalParameterSections
+                                {:
+
+                                :}
+                            |   // empty
                                 {:
 
                                 :}
