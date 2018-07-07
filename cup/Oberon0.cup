@@ -64,10 +64,18 @@ non terminal fieldList;                     // ok
 non terminal identifiers;                   // ok
 non terminal statement;                     // ok
 non terminal statements;                    // ok
-non terminal assignment;
-non terminal procedureCall;
-non terminal ifStatement;
-non terminal whileStatement;
+non terminal assignment;                    // ok
+non terminal procedureCall;                 // ok
+non terminal ifStatement;                   // ok
+non terminal whileStatement;                // ok
+non terminal elseIfStatement;               // ok
+non terminal elseStatement;                 // ok
+non terminal actualParameters;              // ok
+non terminal expressionList;                // ok
+non terminal expressions;                   // ok
+non terminal selector;
+
+
 
 
 start with module;
@@ -316,9 +324,74 @@ statement                   ::= assignment
 
                                 :}
                             ;
+whileStatement              ::= WHILE expression DO statementSequence END
+                                {:
 
+                                :}
+                            ;
+ifStatement                 ::= IF expression THEN statementSequence
+                                elseIfStatement
+                                elseStatement
+                                END
+                                {:
 
+                                :}
+                            ;
+elseIfStatement             ::= ELSIF expression THEN statementSequence elseIfStatement
+                                {:
 
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+elseStatement               ::= ELSE statementSequence
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+procedureCall               ::= IDENTIFIER actualParameters
+                                {:
+
+                                :}
+                            ;
+actualParameters            ::= LEFT_ROUND_BRACKET expressionList RIGHT_ROUND_BRACKET
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+expressionList              ::= expression expressions
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+expressions                 ::= COMMA expression expressions
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+assignment                  ::= IDENTIFIER selector ASSIGN expression
+                                {:
+
+                                :}
+                            ;
 
 
 
