@@ -62,7 +62,7 @@ non terminal recordType;                    // ok
 non terminal fieldLists;                    // ok
 non terminal fieldList;                     // ok
 non terminal identifiers;                   // ok
-non terminal statement;
+non terminal statement;                     // ok
 non terminal statements;                    // ok
 non terminal assignment;
 non terminal procedureCall;
