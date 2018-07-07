@@ -1,6 +1,13 @@
 package oberon_grammar;
 
 import java.io.IOException;
+import java.io.File;
+import java.io.FileReader;
+
+action code
+{:
+
+:};
 
 parser code
 {:
@@ -15,12 +22,12 @@ parser code
             throw new RuntimeException("Unable to open file \"" + file + "\"");
         }
     }
-:}
+:};
 
 scan with
 {:
     return lexer.yylex();
-:}
+:};
 
 
 terminal MODULE, BEGIN, END, CONST, TYPE, VAR, PROCEDURE, ARRAY, OF, RECORD;
@@ -132,7 +139,7 @@ constIdentifierDeclaration  ::= IDENTIFIER EQUAL expression SEMICOLON constIdent
 
                                 :}
                             ;
-typeDeclaration             ::= TYPE typeDeclaration
+typeDeclaration             ::= TYPE typeIdentifierDeclaration
                                 {:
 
                                 :}
@@ -159,7 +166,7 @@ varDeclaration              ::= VAR varIdentifierDeclaration
 
                                 :}
                             ;
-varIdentifierDeclaration    ::= identifierList COLON TYPE SEMICOLON varIdentifierDeclaration
+varIdentifierDeclaration    ::= identifierList COLON type SEMICOLON varIdentifierDeclaration
                                 {:
 
                                 :}
@@ -308,23 +315,19 @@ statements                  ::= SEMICOLON statement statements
 
                                 :}
                             ;
-statement                   ::= assignment
+statement                   ::= assignment statement
                                 {:
 
                                 :}
-                            |   procedureCall
+                            |   procedureCall statement
                                 {:
 
                                 :}
-                            |   ifStatement
+                            |   ifStatement statement
                                 {:
 
                                 :}
-                            |   whileStatement
-                                {:
-
-                                :}
-                            |   statement
+                            |   whileStatement statement
                                 {:
 
                                 :}
@@ -441,6 +444,10 @@ comparisonOperator          ::= EQUAL
                                 :}
                             ;
 simpleExpression            ::= specifiedOperatorI term termSequence
+                                {:
+
+                                :}
+                            ;
 termSequence                ::= specifiedOperatorII term termSequence
                                 {:
 
