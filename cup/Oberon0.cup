@@ -37,7 +37,7 @@ terminal String INTEGER;
 
 non terminal module;                        // ok
 non terminal moduleBeginSection;            // ok
-non terminal statementSequence;
+non terminal statementSequence;             // ok
 non terminal declarations;                  // ok
 non terminal constDeclaration;              // ok
 non terminal constIdentifierDeclaration;    // ok
@@ -48,8 +48,8 @@ non terminal varIdentifierDeclaration;      // ok
 non terminal procedureDeclarations;         // ok
 non terminal procedureDeclaration;          // ok
 non terminal expression;
-non terminal type;
-non terminal identifierList;
+non terminal type;                          // ok
+non terminal identifierList;                // ok
 non terminal procedureHeading;              // ok
 non terminal procedureBody;                 // ok
 non terminal formalParameters;              // ok
@@ -57,7 +57,17 @@ non terminal procedureBodyBeginSection;     // ok
 non terminal wrappedFormalParameters;       // ok
 non terminal formalParameterSections;       // ok
 non terminal formalParameterSection;        // ok
-
+non terminal arrayType;                     // ok
+non terminal recordType;                    // ok
+non terminal fieldLists;                    // ok
+non terminal fieldList;                     // ok
+non terminal identifiers;                   // ok
+non terminal statement;
+non terminal statements;                    // ok
+non terminal assignment;
+non terminal procedureCall;
+non terminal ifStatement;
+non terminal whileStatement;
 
 
 start with module;
@@ -194,7 +204,7 @@ formalParameters            ::= formalParameterSection formalParameterSections
 
                                 :}
                             ;
-formalParameterSections     ::= SEMICOLON formalParameterSections
+formalParameterSections     ::= SEMICOLON formalParameterSection formalParameterSections
                                 {:
 
                                 :}
@@ -212,5 +222,103 @@ formalParameterSection      ::= identifierList COLON type
 
                                 :}
                             ;
+type                        ::= IDENTIFIER
+                                {:
+
+                                :}
+                            |   arrayType
+                                {:
+
+                                :}
+                            |   recordType
+                                {:
+
+                                :}
+                            ;
+recordType                  ::= RECORD fieldList fieldLists END
+                                {:
+
+                                :}
+                            ;
+fieldLists                  ::= SEMICOLON fieldList fieldLists
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+fieldList                   ::= identifierList COLON type
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+arrayType                   ::= ARRAY expression OF type
+                                {:
+
+                                :}
+                            ;
+identifierList              ::= IDENTIFIER identifiers
+                                {:
+
+                                :}
+                            ;
+identifiers                 ::= COMMA IDENTIFIER identifiers
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+statementSequence           ::= statement statements
+                                {:
+
+                                :}
+                            ;
+statements                  ::= SEMICOLON statement statements
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+statement                   ::= assignment
+                                {:
+
+                                :}
+                            |   procedureCall
+                                {:
+
+                                :}
+                            |   ifStatement
+                                {:
+
+                                :}
+                            |   whileStatement
+                                {:
+
+                                :}
+                            |   statement
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+
+
+
+
 
 
