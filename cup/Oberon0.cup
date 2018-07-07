@@ -41,12 +41,14 @@ non terminal statementSequence;
 non terminal declarations;                  // ok
 non terminal constDeclaration;              // ok
 non terminal constIdentifierDeclaration;    // ok
-non terminal typeDeclaration;
-non terminal typeIdentifierDeclaration;
-non terminal varDeclaration;
-non terminal varIdentifierDeclaration;
-non terminal procedureDeclaration;
+non terminal typeDeclaration;               // ok
+non terminal typeIdentifierDeclaration;     // ok
+non terminal varDeclaration;                // ok
+non terminal varIdentifierDeclaration;      // ok
+non terminal procedureDeclaration;          // ok
 non terminal expression;
+non terminal type;
+non terminal identifierList;
 
 start with module;
 
@@ -81,6 +83,43 @@ constDeclaration            ::= CONST constIdentifierDeclaration
                                 :}
                             ;
 constIdentifierDeclaration  ::= IDENTIFIER EQUAL expression SEMICOLON constIdentifierDeclaration
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+typeDeclaration             ::= TYPE typeDeclaration
+                                {:
+
+                                :}
+                            ;
+typeIdentifierDeclaration   ::= IDENTIFIER EQUAL type SEMICOLON typeIdentifierDeclaration
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+varDeclaration              ::= VAR varIdentifierDeclaration
+                                {:
+
+                                :}
+                            ;
+varIdentifierDeclaration    ::= identifierList COLON TYPE SEMICOLON varIdentifierDeclaration
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+procedureDeclaration        ::= procedureDeclaration SEMICOLON procedureDeclaration
                                 {:
 
                                 :}
