@@ -56,7 +56,7 @@ non terminal formalParameters;              // ok
 non terminal procedureBodyBeginSection;     // ok
 non terminal wrappedFormalParameters;       // ok
 non terminal formalParameterSections;       // ok
-non terminal formalParameterSection;
+non terminal formalParameterSection;        // ok
 
 
 
@@ -203,6 +203,14 @@ formalParameterSections     ::= SEMICOLON formalParameterSections
 
                                 :}
                             ;
+formalParameterSection      ::= identifierList COLON type
+                                {:
 
+                                :}
+                            |   VAR identifierList COLON type
+                                {:
+
+                                :}
+                            ;
 
 
