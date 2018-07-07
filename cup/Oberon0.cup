@@ -47,7 +47,7 @@ non terminal varDeclaration;                // ok
 non terminal varIdentifierDeclaration;      // ok
 non terminal procedureDeclarations;         // ok
 non terminal procedureDeclaration;          // ok
-non terminal expression;
+non terminal expression;                    // ok
 non terminal type;                          // ok
 non terminal identifierList;                // ok
 non terminal procedureHeading;              // ok
@@ -73,9 +73,18 @@ non terminal elseStatement;                 // ok
 non terminal actualParameters;              // ok
 non terminal expressionList;                // ok
 non terminal expressions;                   // ok
-non terminal selector;
-
-
+non terminal selector;                      // ok
+non terminal simpleExpression;              // ok
+non terminal comparingSimpleExpression;     // ok
+non terminal comparisonOperator;            // ok
+non terminal term;                          // ok
+non terminal specifiedOperatorI;            // ok
+non terminal termSequence;                  // ok
+non terminal specifiedOperatorII;           // ok
+non terminal factor;                        // ok
+non terminal factorSequence;                // ok
+non terminal specifiedOperatorIII;          // ok
+non terminal number;                        // ok
 
 
 start with module;
@@ -392,6 +401,146 @@ assignment                  ::= IDENTIFIER selector ASSIGN expression
 
                                 :}
                             ;
+expression                  ::= simpleExpression comparingSimpleExpression
+                                {:
 
+                                :}
+                            ;
+comparingSimpleExpression   ::= comparisonOperator simpleExpression
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+comparisonOperator          ::= EQUAL
+                                {:
+
+                                :}
+                            |   NOT_EQUAL
+                                {:
+
+                                :}
+                            |   LESS
+                                {:
+
+                                :}
+                            |   LESS_OR_EQUAL
+                                {:
+
+                                :}
+                            |   GREATER
+                                {:
+
+                                :}
+                            |   GREATER_OR_EQUAL
+                                {:
+
+                                :}
+                            ;
+simpleExpression            ::= specifiedOperatorI term termSequence
+termSequence                ::= specifiedOperatorII term termSequence
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+specifiedOperatorI          ::= ADD
+                                {:
+
+                                :}
+                            |   SUBTRACT
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+specifiedOperatorII         ::= ADD
+                                {:
+
+                                :}
+                            |   SUBTRACT
+                                {:
+
+                                :}
+                            |   OR
+                                {:
+
+                                :}
+                            ;
+term                        ::= factor factorSequence
+                                {:
+
+                                :}
+                            ;
+factorSequence              ::= specifiedOperatorIII factor factorSequence
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
+specifiedOperatorIII        ::= MULTIPLY
+                                {:
+
+                                :}
+                            |   DIVIDE
+                                {:
+
+                                :}
+                            |   MOD
+                                {:
+
+                                :}
+                            |   AND
+                                {:
+
+                                :}
+                            ;
+factor                      ::= IDENTIFIER selector
+                                {:
+
+                                :}
+                            |   number
+                                {:
+
+                                :}
+                            |   LEFT_ROUND_BRACKET expression RIGHT_ROUND_BRACKET
+                                {:
+
+                                :}
+                            |   NOT factor
+                                {:
+
+                                :}
+                            ;
+number                      ::= INTEGER
+                                {:
+
+                                :}
+                            ;
+selector                    ::= DOT IDENTIFIER selector
+                                {:
+
+                                :}
+                            |   LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET selector
+                                {:
+
+                                :}
+                            |   // empty
+                                {:
+
+                                :}
+                            ;
 
 
