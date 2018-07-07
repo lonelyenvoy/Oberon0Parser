@@ -45,10 +45,14 @@ non terminal typeDeclaration;               // ok
 non terminal typeIdentifierDeclaration;     // ok
 non terminal varDeclaration;                // ok
 non terminal varIdentifierDeclaration;      // ok
+non terminal procedureDeclarations;         // ok
 non terminal procedureDeclaration;          // ok
 non terminal expression;
 non terminal type;
 non terminal identifierList;
+non terminal procedureHeading;
+non terminal procedureBody;
+
 
 start with module;
 
@@ -72,12 +76,16 @@ moduleBeginSection          ::= BEGIN statementSequence
 declarations                ::= constDeclaration
                                 typeDeclaration
                                 varDeclaration
-                                procedureDeclaration
+                                procedureDeclarations
                                 {:
 
                                 :}
                             ;
 constDeclaration            ::= CONST constIdentifierDeclaration
+                                {:
+
+                                :}
+                            |   // empty
                                 {:
 
                                 :}
@@ -95,6 +103,10 @@ typeDeclaration             ::= TYPE typeDeclaration
                                 {:
 
                                 :}
+                            |   // empty
+                                {:
+
+                                :}
                             ;
 typeIdentifierDeclaration   ::= IDENTIFIER EQUAL type SEMICOLON typeIdentifierDeclaration
                                 {:
@@ -109,6 +121,10 @@ varDeclaration              ::= VAR varIdentifierDeclaration
                                 {:
 
                                 :}
+                            |   // empty
+                                {:
+
+                                :}
                             ;
 varIdentifierDeclaration    ::= identifierList COLON TYPE SEMICOLON varIdentifierDeclaration
                                 {:
@@ -119,11 +135,16 @@ varIdentifierDeclaration    ::= identifierList COLON TYPE SEMICOLON varIdentifie
 
                                 :}
                             ;
-procedureDeclaration        ::= procedureDeclaration SEMICOLON procedureDeclaration
+procedureDeclarations       ::= procedureDeclaration SEMICOLON procedureDeclarations
                                 {:
 
                                 :}
                             |   // empty
+                                {:
+
+                                :}
+                            ;
+procedureDeclaration        ::= procedureHeading SEMICOLON procedureBody
                                 {:
 
                                 :}
