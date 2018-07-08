@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileReader;
 
+import java_cup.runtime.Symbol;
+
 action code
 {:
 
@@ -26,7 +28,8 @@ parser code
 
 scan with
 {:
-    return lexer.yylex();
+    Symbol symbol = lexer.yylex();
+    return symbol != null ? symbol : new Symbol(SymbolConstants.EOF);
 :};
 
 
@@ -99,7 +102,7 @@ start with module;
 
 module                      ::= MODULE IDENTIFIER:id1 SEMICOLON declarations
                                 moduleBeginSection
-                                END IDENTIFIER:id2
+                                END IDENTIFIER:id2 DOT
                                 {:
 
                                 :}
