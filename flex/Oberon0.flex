@@ -1,4 +1,4 @@
-package oberon_grammar;
+package grammar;
 
 import exception.LexerException;
 import exception.IllegalSymbolException;
