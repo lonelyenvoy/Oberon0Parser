@@ -8,7 +8,7 @@ import java_cup.runtime.Symbol;
 
 %%
 
-%class Oberon0Lexer
+%class Lexer
 %type Symbol
 %yylexthrow LexerException
 %ignorecase
@@ -154,28 +154,22 @@ IllegalOctalInteger     =   {Zero}{OctalDigit}*{NonOctalDigit}+{OctalDigit}*
     {Multiply}              { return token(SymbolConstants.MULTIPLY); }
     {Divide}                { return token(SymbolConstants.DIVIDE); }
     {Mod}                   { return token(SymbolConstants.MOD); }
-//    {ArithmeticOperator}    { return token(SymbolConstants.ARITHMETIC_OPERATOR); }
     {And}                   { return token(SymbolConstants.AND); }
     {Or}                    { return token(SymbolConstants.OR); }
     {Not}                   { return token(SymbolConstants.NOT); }
-//    {LogicOperator}         { return token(SymbolConstants.LOGIC_OPERATOR); }
     {Equal}                 { return token(SymbolConstants.EQUAL); }
     {NotEqual}              { return token(SymbolConstants.NOT_EQUAL); }
     {Less}                  { return token(SymbolConstants.LESS); }
     {LessOrEqual}           { return token(SymbolConstants.LESS_OR_EQUAL); }
     {Greater}               { return token(SymbolConstants.GREATER); }
     {GreaterOrEqual}        { return token(SymbolConstants.GREATER_OR_EQUAL); }
-//    {ComparisonOperator}    { return token(SymbolConstants.COMPARISON_OPERATOR); }
     {LeftSquareBracket}     { return token(SymbolConstants.LEFT_SQUARE_BRACKET); }
     {RightSquareBracket}    { return token(SymbolConstants.RIGHT_SQUARE_BRACKET); }
-//    {SelectorOperator}      { return token(SymbolConstants.SELECTOR_OPERATOR); }
     {Assign}                { return token(SymbolConstants.ASSIGN); }
-//    {AssignmentOperator}    { return token(SymbolConstants.ASSIGNMENT_OPERATOR); }
     {LeftRoundBracket}      { return token(SymbolConstants.LEFT_ROUND_BRACKET); }
     {RightRoundBracket}     { return token(SymbolConstants.RIGHT_ROUND_BRACKET); }
     {Dot}                   { return token(SymbolConstants.DOT); }
     {Colon}                 { return token(SymbolConstants.COLON); }
-//    {Operator}              { return token(SymbolConstants.OPERATOR); }
     {Identifier}            {
                               if (yytext().length() > 24) throw new IllegalSymbolException("Identifier too long");
                               return token(SymbolConstants.IDENTIFIER);

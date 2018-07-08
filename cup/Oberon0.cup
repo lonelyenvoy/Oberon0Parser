@@ -13,13 +13,13 @@ action code
 
 parser code
 {:
-    private Oberon0Lexer lexer;
+    private Lexer lexer;
     private File file;
     public Parser(File file) {
         this();
         this.file = file;
         try {
-            lexer = new Oberon0Lexer(new FileReader(file));
+            lexer = new Lexer(new FileReader(file));
         } catch (IOException exception) {
             throw new RuntimeException("Unable to open file \"" + file + "\"");
         }
