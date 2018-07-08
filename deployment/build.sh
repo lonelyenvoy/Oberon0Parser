@@ -8,12 +8,12 @@
 # JFlex
 echo
 echo "JFlex: "
-mkdir -p src/oberon0_grammar/
+mkdir -p src/oberon_grammar/
 jflex flex/Oberon0.flex -d $_
 
 # CUP
 echo
 echo "CUP: "
 java -jar lib/java-cup-11b.jar -parser Parser -symbols SymbolConstants cup/Oberon0.cup
-mv Parser.java src/oberon0_grammar/
+mv Parser.java src/oberon_grammar/
 mv SymbolConstants.java $_
