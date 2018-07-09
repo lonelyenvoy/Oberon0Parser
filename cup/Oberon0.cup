@@ -308,6 +308,10 @@ statementSequence           ::= statement statements
                                 {:
 
                                 :}
+                            |   error statements
+                                {:
+
+                                :}
                             ;
 statements                  ::= SEMICOLON statement statements
                                 {:
