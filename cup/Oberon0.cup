@@ -45,69 +45,69 @@ terminal LEFT_ROUND_BRACKET, RIGHT_ROUND_BRACKET, DOT, COLON;
 terminal String IDENTIFIER;
 terminal String INTEGER;
 
-non terminal module;                        // ok
-non terminal moduleBeginSection;            // ok
-non terminal statementSequence;             // ok
-non terminal declarations;                  // ok
-non terminal constDeclaration;              // ok
-non terminal constIdentifierDeclaration;    // ok
-non terminal typeDeclaration;               // ok
-non terminal typeIdentifierDeclaration;     // ok
-non terminal varDeclaration;                // ok
-non terminal varIdentifierDeclaration;      // ok
-non terminal procedureDeclarations;         // ok
-non terminal procedureDeclaration;          // ok
-non terminal expression;                    // ok
-non terminal type;                          // ok
-non terminal identifierList;                // ok
-non terminal procedureHeading;              // ok
-non terminal procedureBody;                 // ok
-non terminal formalParameters;              // ok
-non terminal procedureBodyBeginSection;     // ok
-non terminal wrappedFormalParameters;       // ok
-non terminal formalParameterSections;       // ok
-non terminal formalParameterSection;        // ok
-non terminal arrayType;                     // ok
-non terminal recordType;                    // ok
-non terminal fieldLists;                    // ok
-non terminal fieldList;                     // ok
-non terminal identifiers;                   // ok
-non terminal statement;                     // ok
-non terminal statements;                    // ok
-non terminal assignment;                    // ok
-non terminal procedureCall;                 // ok
-non terminal ifStatement;                   // ok
-non terminal whileStatement;                // ok
-non terminal elseIfStatement;               // ok
-non terminal elseStatement;                 // ok
-non terminal actualParameters;              // ok
-non terminal expressionList;                // ok
-non terminal expressions;                   // ok
-non terminal selector;                      // ok
-non terminal simpleExpression;              // ok
-non terminal comparingSimpleExpression;     // ok
-non terminal comparisonOperator;            // ok
-non terminal term;                          // ok
-non terminal specifiedOperatorI;            // ok
-non terminal termSequence;                  // ok
-non terminal specifiedOperatorII;           // ok
-non terminal factor;                        // ok
-non terminal factorSequence;                // ok
-non terminal specifiedOperatorIII;          // ok
-non terminal number;                        // ok
+non terminal Module;                        // ok
+non terminal ModuleBeginSection;            // ok
+non terminal StatementSequence;             // ok
+non terminal Declarations;                  // ok
+non terminal ConstDeclaration;              // ok
+non terminal ConstIdentifierDeclaration;    // ok
+non terminal TypeDeclaration;               // ok
+non terminal TypeIdentifierDeclaration;     // ok
+non terminal VarDeclaration;                // ok
+non terminal VarIdentifierDeclaration;      // ok
+non terminal ProcedureDeclarations;         // ok
+non terminal ProcedureDeclaration;          // ok
+non terminal Expression;                    // ok
+non terminal Type;                          // ok
+non terminal IdentifierList;                // ok
+non terminal ProcedureHeading;              // ok
+non terminal ProcedureBody;                 // ok
+non terminal FormalParameters;              // ok
+non terminal ProcedureBodyBeginSection;     // ok
+non terminal WrappedFormalParameters;       // ok
+non terminal FormalParameterSections;       // ok
+non terminal FormalParameterSection;        // ok
+non terminal ArrayType;                     // ok
+non terminal RecordType;                    // ok
+non terminal FieldLists;                    // ok
+non terminal FieldList;                     // ok
+non terminal Identifiers;                   // ok
+non terminal Statement;                     // ok
+non terminal Statements;                    // ok
+non terminal Assignment;                    // ok
+non terminal ProcedureCall;                 // ok
+non terminal IfStatement;                   // ok
+non terminal WhileStatement;                // ok
+non terminal ElseIfStatement;               // ok
+non terminal ElseStatement;                 // ok
+non terminal ActualParameters;              // ok
+non terminal ExpressionList;                // ok
+non terminal Expressions;                   // ok
+non terminal Selector;                      // ok
+non terminal SimpleExpression;              // ok
+non terminal ComparingSimpleExpression;     // ok
+non terminal ComparisonOperator;            // ok
+non terminal Term;                          // ok
+non terminal SpecifiedOperatorI;            // ok
+non terminal TermSequence;                  // ok
+non terminal SpecifiedOperatorII;           // ok
+non terminal Factor;                        // ok
+non terminal FactorSequence;                // ok
+non terminal SpecifiedOperatorIII;          // ok
+non terminal Number;                        // ok
 
 
-start with module;
+start with Module;
 
 
-module                      ::= MODULE IDENTIFIER:id1 SEMICOLON declarations
-                                moduleBeginSection
+Module                      ::= MODULE IDENTIFIER:id1 SEMICOLON Declarations
+                                ModuleBeginSection
                                 END IDENTIFIER:id2 DOT
                                 {:
 
                                 :}
                             ;
-moduleBeginSection          ::= BEGIN statementSequence
+ModuleBeginSection          ::= BEGIN StatementSequence
                                 {:
 
                                 :}
@@ -116,15 +116,15 @@ moduleBeginSection          ::= BEGIN statementSequence
 
                                 :}
                             ;
-declarations                ::= constDeclaration
-                                typeDeclaration
-                                varDeclaration
-                                procedureDeclarations
+Declarations                ::= ConstDeclaration
+                                TypeDeclaration
+                                VarDeclaration
+                                ProcedureDeclarations
                                 {:
 
                                 :}
                             ;
-constDeclaration            ::= CONST constIdentifierDeclaration
+ConstDeclaration            ::= CONST ConstIdentifierDeclaration
                                 {:
 
                                 :}
@@ -133,7 +133,7 @@ constDeclaration            ::= CONST constIdentifierDeclaration
 
                                 :}
                             ;
-constIdentifierDeclaration  ::= IDENTIFIER EQUAL expression SEMICOLON constIdentifierDeclaration
+ConstIdentifierDeclaration  ::= IDENTIFIER EQUAL Expression SEMICOLON ConstIdentifierDeclaration
                                 {:
 
                                 :}
@@ -142,7 +142,7 @@ constIdentifierDeclaration  ::= IDENTIFIER EQUAL expression SEMICOLON constIdent
 
                                 :}
                             ;
-typeDeclaration             ::= TYPE typeIdentifierDeclaration
+TypeDeclaration             ::= TYPE TypeIdentifierDeclaration
                                 {:
 
                                 :}
@@ -151,7 +151,7 @@ typeDeclaration             ::= TYPE typeIdentifierDeclaration
 
                                 :}
                             ;
-typeIdentifierDeclaration   ::= IDENTIFIER EQUAL type SEMICOLON typeIdentifierDeclaration
+TypeIdentifierDeclaration   ::= IDENTIFIER EQUAL Type SEMICOLON TypeIdentifierDeclaration
                                 {:
 
                                 :}
@@ -160,7 +160,7 @@ typeIdentifierDeclaration   ::= IDENTIFIER EQUAL type SEMICOLON typeIdentifierDe
 
                                 :}
                             ;
-varDeclaration              ::= VAR varIdentifierDeclaration
+VarDeclaration              ::= VAR VarIdentifierDeclaration
                                 {:
 
                                 :}
@@ -169,7 +169,7 @@ varDeclaration              ::= VAR varIdentifierDeclaration
 
                                 :}
                             ;
-varIdentifierDeclaration    ::= identifierList COLON type SEMICOLON varIdentifierDeclaration
+VarIdentifierDeclaration    ::= IdentifierList COLON Type SEMICOLON VarIdentifierDeclaration
                                 {:
 
                                 :}
@@ -178,7 +178,7 @@ varIdentifierDeclaration    ::= identifierList COLON type SEMICOLON varIdentifie
 
                                 :}
                             ;
-procedureDeclarations       ::= procedureDeclaration SEMICOLON procedureDeclarations
+ProcedureDeclarations       ::= ProcedureDeclaration SEMICOLON ProcedureDeclarations
                                 {:
 
                                 :}
@@ -187,24 +187,24 @@ procedureDeclarations       ::= procedureDeclaration SEMICOLON procedureDeclarat
 
                                 :}
                             ;
-procedureDeclaration        ::= procedureHeading SEMICOLON procedureBody
+ProcedureDeclaration        ::= ProcedureHeading SEMICOLON ProcedureBody
                                 {:
 
                                 :}
                             ;
-procedureHeading            ::= PROCEDURE IDENTIFIER wrappedFormalParameters
+ProcedureHeading            ::= PROCEDURE IDENTIFIER WrappedFormalParameters
                                 {:
 
                                 :}
                             ;
-procedureBody               ::= declarations
-                                procedureBodyBeginSection
+ProcedureBody               ::= Declarations
+                                ProcedureBodyBeginSection
                                 END IDENTIFIER
                                 {:
 
                                 :}
                             ;
-procedureBodyBeginSection   ::= BEGIN statementSequence
+ProcedureBodyBeginSection   ::= BEGIN StatementSequence
                                 {:
 
                                 :}
@@ -213,7 +213,7 @@ procedureBodyBeginSection   ::= BEGIN statementSequence
 
                                 :}
                             ;
-wrappedFormalParameters     ::= LEFT_ROUND_BRACKET formalParameters RIGHT_ROUND_BRACKET
+WrappedFormalParameters     ::= LEFT_ROUND_BRACKET FormalParameters RIGHT_ROUND_BRACKET
                                 {:
 
                                 :}
@@ -222,7 +222,7 @@ wrappedFormalParameters     ::= LEFT_ROUND_BRACKET formalParameters RIGHT_ROUND_
 
                                 :}
                             ;
-formalParameters            ::= formalParameterSection formalParameterSections
+FormalParameters            ::= FormalParameterSection FormalParameterSections
                                 {:
 
                                 :}
@@ -231,7 +231,7 @@ formalParameters            ::= formalParameterSection formalParameterSections
 
                                 :}
                             ;
-formalParameterSections     ::= SEMICOLON formalParameterSection formalParameterSections
+FormalParameterSections     ::= SEMICOLON FormalParameterSection FormalParameterSections
                                 {:
 
                                 :}
@@ -240,34 +240,34 @@ formalParameterSections     ::= SEMICOLON formalParameterSection formalParameter
 
                                 :}
                             ;
-formalParameterSection      ::= identifierList COLON type
+FormalParameterSection      ::= IdentifierList COLON Type
                                 {:
 
                                 :}
-                            |   VAR identifierList COLON type
-                                {:
-
-                                :}
-                            ;
-type                        ::= IDENTIFIER
-                                {:
-
-                                :}
-                            |   arrayType
-                                {:
-
-                                :}
-                            |   recordType
+                            |   VAR IdentifierList COLON Type
                                 {:
 
                                 :}
                             ;
-recordType                  ::= RECORD fieldList fieldLists END
+Type                        ::= IDENTIFIER
+                                {:
+
+                                :}
+                            |   ArrayType
+                                {:
+
+                                :}
+                            |   RecordType
                                 {:
 
                                 :}
                             ;
-fieldLists                  ::= SEMICOLON fieldList fieldLists
+RecordType                  ::= RECORD FieldList FieldLists END
+                                {:
+
+                                :}
+                            ;
+FieldLists                  ::= SEMICOLON FieldList FieldLists
                                 {:
 
                                 :}
@@ -276,7 +276,7 @@ fieldLists                  ::= SEMICOLON fieldList fieldLists
 
                                 :}
                             ;
-fieldList                   ::= identifierList COLON type
+FieldList                   ::= IdentifierList COLON Type
                                 {:
 
                                 :}
@@ -285,17 +285,17 @@ fieldList                   ::= identifierList COLON type
 
                                 :}
                             ;
-arrayType                   ::= ARRAY expression OF type
+ArrayType                   ::= ARRAY Expression OF Type
                                 {:
 
                                 :}
                             ;
-identifierList              ::= IDENTIFIER identifiers
+IdentifierList              ::= IDENTIFIER Identifiers
                                 {:
 
                                 :}
                             ;
-identifiers                 ::= COMMA IDENTIFIER identifiers
+Identifiers                 ::= COMMA IDENTIFIER Identifiers
                                 {:
 
                                 :}
@@ -304,16 +304,16 @@ identifiers                 ::= COMMA IDENTIFIER identifiers
 
                                 :}
                             ;
-statementSequence           ::= statement statements
+StatementSequence           ::= Statement Statements
                                 {:
 
                                 :}
-                            |   error statements
+                            |   error Statements
                                 {:
 
                                 :}
                             ;
-statements                  ::= SEMICOLON statement statements
+Statements                  ::= SEMICOLON Statement Statements
                                 {:
 
                                 :}
@@ -322,19 +322,19 @@ statements                  ::= SEMICOLON statement statements
 
                                 :}
                             ;
-statement                   ::= assignment statement
+Statement                   ::= Assignment Statement
                                 {:
 
                                 :}
-                            |   procedureCall statement
+                            |   ProcedureCall Statement
                                 {:
 
                                 :}
-                            |   ifStatement statement
+                            |   IfStatement Statement
                                 {:
 
                                 :}
-                            |   whileStatement statement
+                            |   WhileStatement Statement
                                 {:
 
                                 :}
@@ -343,20 +343,20 @@ statement                   ::= assignment statement
 
                                 :}
                             ;
-whileStatement              ::= WHILE expression DO statementSequence END
+WhileStatement              ::= WHILE Expression DO StatementSequence END
                                 {:
 
                                 :}
                             ;
-ifStatement                 ::= IF expression THEN statementSequence
-                                elseIfStatement
-                                elseStatement
+IfStatement                 ::= IF Expression THEN StatementSequence
+                                ElseIfStatement
+                                ElseStatement
                                 END
                                 {:
 
                                 :}
                             ;
-elseIfStatement             ::= ELSIF expression THEN statementSequence elseIfStatement
+ElseIfStatement             ::= ELSIF Expression THEN StatementSequence ElseIfStatement
                                 {:
 
                                 :}
@@ -365,7 +365,7 @@ elseIfStatement             ::= ELSIF expression THEN statementSequence elseIfSt
 
                                 :}
                             ;
-elseStatement               ::= ELSE statementSequence
+ElseStatement               ::= ELSE StatementSequence
                                 {:
 
                                 :}
@@ -374,12 +374,12 @@ elseStatement               ::= ELSE statementSequence
 
                                 :}
                             ;
-procedureCall               ::= IDENTIFIER actualParameters
+ProcedureCall               ::= IDENTIFIER ActualParameters
                                 {:
 
                                 :}
                             ;
-actualParameters            ::= LEFT_ROUND_BRACKET expressionList RIGHT_ROUND_BRACKET
+ActualParameters            ::= LEFT_ROUND_BRACKET ExpressionList RIGHT_ROUND_BRACKET
                                 {:
 
                                 :}
@@ -388,7 +388,7 @@ actualParameters            ::= LEFT_ROUND_BRACKET expressionList RIGHT_ROUND_BR
 
                                 :}
                             ;
-expressionList              ::= expression expressions
+ExpressionList              ::= Expression Expressions
                                 {:
 
                                 :}
@@ -397,7 +397,7 @@ expressionList              ::= expression expressions
 
                                 :}
                             ;
-expressions                 ::= COMMA expression expressions
+Expressions                 ::= COMMA Expression Expressions
                                 {:
 
                                 :}
@@ -406,17 +406,17 @@ expressions                 ::= COMMA expression expressions
 
                                 :}
                             ;
-assignment                  ::= IDENTIFIER selector ASSIGN expression
+Assignment                  ::= IDENTIFIER Selector ASSIGN Expression
                                 {:
 
                                 :}
                             ;
-expression                  ::= simpleExpression comparingSimpleExpression
+Expression                  ::= SimpleExpression ComparingSimpleExpression
                                 {:
 
                                 :}
                             ;
-comparingSimpleExpression   ::= comparisonOperator simpleExpression
+ComparingSimpleExpression   ::= ComparisonOperator SimpleExpression
                                 {:
 
                                 :}
@@ -425,7 +425,7 @@ comparingSimpleExpression   ::= comparisonOperator simpleExpression
 
                                 :}
                             ;
-comparisonOperator          ::= EQUAL
+ComparisonOperator          ::= EQUAL
                                 {:
 
                                 :}
@@ -450,12 +450,12 @@ comparisonOperator          ::= EQUAL
 
                                 :}
                             ;
-simpleExpression            ::= specifiedOperatorI term termSequence
+SimpleExpression            ::= SpecifiedOperatorI Term TermSequence
                                 {:
 
                                 :}
                             ;
-termSequence                ::= specifiedOperatorII term termSequence
+TermSequence                ::= SpecifiedOperatorII Term TermSequence
                                 {:
 
                                 :}
@@ -464,7 +464,7 @@ termSequence                ::= specifiedOperatorII term termSequence
 
                                 :}
                             ;
-specifiedOperatorI          ::= ADD
+SpecifiedOperatorI          ::= ADD
                                 {:
 
                                 :}
@@ -477,7 +477,7 @@ specifiedOperatorI          ::= ADD
 
                                 :}
                             ;
-specifiedOperatorII         ::= ADD
+SpecifiedOperatorII         ::= ADD
                                 {:
 
                                 :}
@@ -490,12 +490,12 @@ specifiedOperatorII         ::= ADD
 
                                 :}
                             ;
-term                        ::= factor factorSequence
+Term                        ::= Factor FactorSequence
                                 {:
 
                                 :}
                             ;
-factorSequence              ::= specifiedOperatorIII factor factorSequence
+FactorSequence              ::= SpecifiedOperatorIII Factor FactorSequence
                                 {:
 
                                 :}
@@ -504,7 +504,7 @@ factorSequence              ::= specifiedOperatorIII factor factorSequence
 
                                 :}
                             ;
-specifiedOperatorIII        ::= MULTIPLY
+SpecifiedOperatorIII        ::= MULTIPLY
                                 {:
 
                                 :}
@@ -521,33 +521,33 @@ specifiedOperatorIII        ::= MULTIPLY
 
                                 :}
                             ;
-factor                      ::= IDENTIFIER selector
+Factor                      ::= IDENTIFIER Selector
                                 {:
 
                                 :}
-                            |   number
+                            |   Number
                                 {:
 
                                 :}
-                            |   LEFT_ROUND_BRACKET expression RIGHT_ROUND_BRACKET
+                            |   LEFT_ROUND_BRACKET Expression RIGHT_ROUND_BRACKET
                                 {:
 
                                 :}
-                            |   NOT factor
-                                {:
-
-                                :}
-                            ;
-number                      ::= INTEGER
+                            |   NOT Factor
                                 {:
 
                                 :}
                             ;
-selector                    ::= DOT IDENTIFIER selector
+Number                      ::= INTEGER
                                 {:
 
                                 :}
-                            |   LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET selector
+                            ;
+Selector                    ::= DOT IDENTIFIER Selector
+                                {:
+
+                                :}
+                            |   LEFT_SQUARE_BRACKET Expression RIGHT_SQUARE_BRACKET Selector
                                 {:
 
                                 :}
