@@ -24,11 +24,7 @@ public class Visualizer {
             // ignore
         } else if (statementNode instanceof AssignmentNode || statementNode instanceof ProcedureCallNode) {
             // add to parent
-            if (parent instanceof Procedure) {
-                ((Procedure) parent).add(new PrimitiveStatement(statementNode.toString()));
-            } else {
-                ((StatementSequence) parent).add(new PrimitiveStatement(statementNode.toString()));
-            }
+            addStatementToProcedureOrStatementSequence(parent, new PrimitiveStatement(statementNode.toString()));
         } else if (statementNode instanceof IfStatementNode) {
             // if
             IfStatement ifStatement = new IfStatement(((IfStatementNode) statementNode).ifStatementUnitNode.expressionNode.toString());
@@ -51,22 +47,24 @@ public class Visualizer {
                 drawStatementNode(lastIfStatement.getFalseBody(), elseStatementNode);
             }
             // add to parent
-            if (parent instanceof Procedure) {
-                ((Procedure) parent).add(ifStatement);
-            } else {
-                ((StatementSequence) parent).add(ifStatement);
-            }
+            addStatementToProcedureOrStatementSequence(parent, ifStatement);
         } else if (statementNode instanceof WhileStatementNode) {
             WhileStatement whileStatement = new WhileStatement(((WhileStatementNode) statementNode).conditionalStatementUnitNode.expressionNode.toString());
             for (StatementNode whileStatementNode : ((WhileStatementNode) statementNode).conditionalStatementUnitNode.statementSequenceNode.getContainer()) {
                 drawStatementNode(whileStatement.getLoopBody(), whileStatementNode);
             }
             // add to parent
-            if (parent instanceof Procedure) {
-                ((Procedure) parent).add(whileStatement);
-            } else {
-                ((StatementSequence) parent).add(whileStatement);
-            }
+            addStatementToProcedureOrStatementSequence(parent, whileStatement);
+        }
+    }
+
+    private static<T> void addStatementToProcedureOrStatementSequence(T parent, AbstractStatement statement) {
+        if (parent instanceof Procedure) {
+            ((Procedure) parent).add(statement);
+        } else if (parent instanceof StatementSequence) {
+            ((StatementSequence) parent).add(statement);
+        } else {
+            throw new IllegalArgumentException("Illegal argument type of parent, must be Procedure or StatementSequence");
         }
     }
 }
