@@ -16,4 +16,9 @@ public class ConstDeclarationUnitNode extends Node {
         this.identifierNode = identifierNode;
         this.expressionNode = expressionNode;
     }
+
+    @Override
+    public String toString() {
+        return identifierNode.toString() + " = " + expressionNode.toString() + "; ";
+    }
 }

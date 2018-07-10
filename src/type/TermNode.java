@@ -18,4 +18,17 @@ public class TermNode extends Node {
         this.factorNode = factorNode;
         this.operatedFactorNodes = operatedFactorNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(factorNode.toString());
+        boolean first = true;
+        for (OperatedFactorNode node : operatedFactorNodes) {
+            if (first) first = false;
+            else builder.append(" ");
+            builder.append(node.toString());
+        }
+        return builder.toString();
+    }
 }

@@ -16,4 +16,9 @@ public class OperatedFactorNode extends Node {
         this.operator = operator;
         this.factorNode = factorNode;
     }
+
+    @Override
+    public String toString() {
+        return operator.toString() + " " + factorNode.toString();
+    }
 }

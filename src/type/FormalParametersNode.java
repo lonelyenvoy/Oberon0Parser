@@ -36,4 +36,18 @@ public class FormalParametersNode extends Node implements NodeDequeContainer<For
     public Deque<FormalParameterSectionNode> getContainer() {
         return formalParameterSectionNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("(");
+        boolean first = true;
+        for (FormalParameterSectionNode node : formalParameterSectionNodes) {
+            if (first) first = false;
+            else builder.append("; ");
+            builder.append(node.toString());
+        }
+        builder.append(")");
+        return builder.toString();
+    }
 }

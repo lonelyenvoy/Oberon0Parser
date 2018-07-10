@@ -16,4 +16,9 @@ public class ComparingSimpleExpressionNode extends Node {
         this.operator = operator;
         this.simpleExpressionNode = simpleExpressionNode;
     }
+
+    @Override
+    public String toString() {
+        return operator.toString() + " " + simpleExpressionNode.toString();
+    }
 }

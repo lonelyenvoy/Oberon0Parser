@@ -9,4 +9,9 @@ public class IdentifierTypeNode extends TypeNode {
         }
         this.identifierNode = identifierNode;
     }
+
+    @Override
+    public String toString() {
+        return identifierNode.toString();
+    }
 }

@@ -26,4 +26,16 @@ public class StatementSequenceNode extends Node implements NodeDequeContainer<St
     public Deque<StatementNode> getContainer() {
         return statementNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        boolean first = true;
+        for (StatementNode statementNode : statementNodes) {
+            if (first) first = false;
+            else builder.append("; ");
+            builder.append(statementNode);
+        }
+        return builder.toString();
+    }
 }

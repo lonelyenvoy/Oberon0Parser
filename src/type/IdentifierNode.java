@@ -9,4 +9,9 @@ public class IdentifierNode extends TerminalNode {
         }
         this.identifier = identifier;
     }
+
+    @Override
+    public String toString() {
+        return identifier;
+    }
 }

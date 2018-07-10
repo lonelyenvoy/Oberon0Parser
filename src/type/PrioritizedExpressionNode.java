@@ -9,4 +9,9 @@ public class PrioritizedExpressionNode extends FactorNode {
         }
         this.expressionNode = expressionNode;
     }
+
+    @Override
+    public String toString() {
+        return "(" + expressionNode + ")";
+    }
 }

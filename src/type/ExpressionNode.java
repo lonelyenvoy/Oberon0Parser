@@ -35,4 +35,19 @@ public class ExpressionNode extends Node {
         this.rightSimpleExpressionNode = rightSimpleExpressionNode;
         this.isSingle = false;
     }
+
+    @Override
+    public String toString() {
+        if (isSingle) {
+            return leftSimpleExpressionNode.toString();
+        } else {
+            assert operator != null;
+            assert rightSimpleExpressionNode != null;
+            return leftSimpleExpressionNode.toString() +
+                    " " +
+                    operator.toString() +
+                    " " +
+                    rightSimpleExpressionNode.toString();
+        }
+    }
 }

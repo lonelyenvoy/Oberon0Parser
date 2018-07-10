@@ -26,4 +26,13 @@ public class SelectorNode extends Node implements NodeDequeContainer<SelectorUni
     public Deque<SelectorUnitNode> getContainer() {
         return selectorUnitNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (SelectorUnitNode node : selectorUnitNodes) {
+            builder.append(node.toString());
+        }
+        return builder.toString();
+    }
 }

@@ -14,4 +14,9 @@ public class ProcedureCallNode extends StatementNode {
         this.identifierNode = identifierNode;
         this.actualParametersNode = actualParametersNode;
     }
+
+    @Override
+    public String toString() {
+        return identifierNode.toString() + actualParametersNode.toString();
+    }
 }

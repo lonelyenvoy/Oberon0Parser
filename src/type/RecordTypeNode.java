@@ -31,4 +31,16 @@ public class RecordTypeNode extends TypeNode implements NodeDequeContainer<Field
     public Deque<FieldListNode> getContainer() {
         return fieldListNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        boolean first = true;
+        for (FieldListNode node : fieldListNodes) {
+            if (first) first = false;
+            else builder.append("; ");
+            builder.append(node.toString());
+        }
+        return builder.toString();
+    }
 }

@@ -9,4 +9,9 @@ public class ArraySelectorUnitNode extends SelectorUnitNode {
         }
         this.expressionNode = expressionNode;
     }
+
+    @Override
+    public String toString() {
+        return "[" + expressionNode.toString() + "]";
+    }
 }

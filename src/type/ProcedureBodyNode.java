@@ -23,4 +23,18 @@ public class ProcedureBodyNode extends Node {
         this.beginStatementSequenceNode = beginStatementSequenceNode;
         this.endIdentifierNode = endIdentifierNode;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        String declarationString = declarationsNode.toString();
+        builder.append(declarationString);
+        if (!beginStatementSequenceNode.getContainer().isEmpty()) {
+            builder.append("BEGIN ");
+            builder.append(beginStatementSequenceNode.toString());
+        }
+        builder.append("END ");
+        builder.append(endIdentifierNode.toString());
+        return builder.toString();
+    }
 }

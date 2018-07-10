@@ -14,4 +14,9 @@ public class ArrayTypeNode extends TypeNode {
         this.expressionNode = expressionNode;
         this.typeNode = typeNode;
     }
+
+    @Override
+    public String toString() {
+        return "ARRAY " + expressionNode.toString() + " OF " + typeNode.toString();
+    }
 }

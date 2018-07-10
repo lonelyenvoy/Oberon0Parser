@@ -23,4 +23,26 @@ public class IfStatementNode extends StatementNode {
         this.elseIfStatementUnitNodes = elseIfStatementUnitNodes;
         this.elseStatementSequenceNode = elseStatementSequenceNode;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("IF ")
+                .append(ifStatementUnitNode.expressionNode.toString())
+                .append(" THEN ")
+                .append(ifStatementUnitNode.statementSequenceNode.toString());
+
+        for (ConditionalStatementUnitNode elseIfStatementUnitNode : elseIfStatementUnitNodes) {
+            builder.append(" ELSIF ")
+                    .append(elseIfStatementUnitNode.expressionNode.toString())
+                    .append(" THEN ")
+                    .append(elseIfStatementUnitNode.statementSequenceNode.toString());
+        }
+        if (!elseStatementSequenceNode.getContainer().isEmpty()) {
+            builder.append(" ELSE ")
+                    .append(elseStatementSequenceNode.toString());
+        }
+        builder.append(" END");
+        return builder.toString();
+    }
 }

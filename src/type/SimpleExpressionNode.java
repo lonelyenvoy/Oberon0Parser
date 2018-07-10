@@ -25,4 +25,19 @@ public class SimpleExpressionNode extends Node {
         this.termNode = termNode;
         this.operatedTermNodes = operatedTermNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(prefixOperator.toString());
+        builder.append(termNode.toString());
+        boolean first = true;
+        for (OperatedTermNode node : operatedTermNodes) {
+            if (first) first = false;
+            else builder.append(" ");
+            builder.append(node);
+        }
+        return builder.toString();
+    }
+
 }

@@ -9,4 +9,9 @@ public class NegatedFactorNode extends FactorNode {
         }
         this.factorNode = factorNode;
     }
+
+    @Override
+    public String toString() {
+        return factorNode.toString();
+    }
 }

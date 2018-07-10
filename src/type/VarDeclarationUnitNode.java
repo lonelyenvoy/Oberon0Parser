@@ -16,4 +16,9 @@ public class VarDeclarationUnitNode extends Node {
         this.identifierListNode = identifierListNode;
         this.typeNode = typeNode;
     }
+
+    @Override
+    public String toString() {
+        return identifierListNode.toString() + ": " + typeNode.toString() + "; ";
+    }
 }

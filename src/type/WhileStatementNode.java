@@ -7,4 +7,10 @@ public class WhileStatementNode extends StatementNode {
                               StatementSequenceNode statementSequenceNode) {
         conditionalStatementUnitNode = new ConditionalStatementUnitNode(expressionNode, statementSequenceNode);
     }
+
+    @Override
+    public String toString() {
+        return "WHILE " + conditionalStatementUnitNode.expressionNode.toString()
+                + " DO " + conditionalStatementUnitNode.statementSequenceNode.toString() + " END";
+    }
 }

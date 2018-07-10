@@ -17,4 +17,9 @@ public class ConditionalStatementUnitNode extends Node {
         this.expressionNode = expressionNode;
         this.statementSequenceNode = statementSequenceNode;
     }
+
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Cannot convert ConditionalStatementUnitNode to String");
+    }
 }

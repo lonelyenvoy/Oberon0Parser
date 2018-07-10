@@ -16,4 +16,9 @@ public class ProcedureHeadingNode extends Node {
         this.identifierNode = identifierNode;
         this.formalParametersNode = formalParametersNode;
     }
+
+    @Override
+    public String toString() {
+        return "PROCEDURE " + identifierNode.toString() + formalParametersNode.toString();
+    }
 }

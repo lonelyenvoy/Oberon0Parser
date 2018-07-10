@@ -36,4 +36,16 @@ public class ConstDeclarationNode extends Node implements NodeDequeContainer<Con
     public ConstDeclarationUnitNode getFirst() {
         return constDeclarationUnitNodes.getFirst();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (!constDeclarationUnitNodes.isEmpty()) {
+            builder.append("CONST ");
+            for (ConstDeclarationUnitNode node : constDeclarationUnitNodes) {
+                builder.append(node.toString());
+            }
+        }
+        return builder.toString();
+    }
 }

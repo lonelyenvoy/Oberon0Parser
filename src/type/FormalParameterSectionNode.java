@@ -20,4 +20,9 @@ public class FormalParameterSectionNode extends Node {
         this.identifierListNode = identifierListNode;
         this.typeNode = typeNode;
     }
+
+    @Override
+    public String toString() {
+        return (isVar ? "VAR " : "") + identifierListNode.toString() + ": " + typeNode.toString();
+    }
 }

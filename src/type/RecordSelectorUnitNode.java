@@ -9,4 +9,9 @@ public class RecordSelectorUnitNode extends SelectorUnitNode {
         }
         this.identifierNode = identifierNode;
     }
+
+    @Override
+    public String toString() {
+        return "." + identifierNode.toString();
+    }
 }

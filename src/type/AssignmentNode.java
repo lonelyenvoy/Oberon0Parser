@@ -14,4 +14,9 @@ public class AssignmentNode extends StatementNode {
         this.selectedIdentifierNode = selectedIdentifierNode;
         this.expressionNode = expressionNode;
     }
+
+    @Override
+    public String toString() {
+        return selectedIdentifierNode.toString() + " := " + expressionNode.toString();
+    }
 }

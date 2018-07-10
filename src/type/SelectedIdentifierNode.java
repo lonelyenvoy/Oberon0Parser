@@ -15,4 +15,9 @@ public class SelectedIdentifierNode extends FactorNode {
         this.identifierNode = identifierNode;
         this.selectorNode = selectorNode;
     }
+
+    @Override
+    public String toString() {
+        return identifierNode.toString() + selectorNode.toString();
+    }
 }

@@ -29,4 +29,21 @@ public class ModuleNode extends Node {
         this.statementSequenceNode = statementSequenceNode;
         this.endIdentifierNode = endIdentifierNode;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("MODULE ")
+                .append(beginIdentifierNode.toString())
+                .append("; ")
+                .append(declarationsNode.toString());
+        if (!statementSequenceNode.getContainer().isEmpty()) {
+            builder.append("BEGIN ")
+                    .append(statementSequenceNode.toString());
+        }
+        builder.append("END ")
+                .append(endIdentifierNode.toString())
+                .append(". ");
+        return builder.toString();
+    }
 }

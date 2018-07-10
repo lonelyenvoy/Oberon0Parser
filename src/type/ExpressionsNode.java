@@ -33,4 +33,16 @@ public class ExpressionsNode extends Node implements NodeDequeContainer<Expressi
     public Deque<ExpressionNode> getContainer() {
         return expressionNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        boolean first = true;
+        for (ExpressionNode node : expressionNodes) {
+            if (first) first = false;
+            else builder.append(", ");
+            builder.append(node.toString());
+        }
+        return builder.toString();
+    }
 }

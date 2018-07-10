@@ -16,4 +16,9 @@ public class OperatedTermNode extends Node {
         this.operator = operator;
         this.termNode = termNode;
     }
+
+    @Override
+    public String toString() {
+        return operator.toString() + " " + termNode.toString();
+    }
 }

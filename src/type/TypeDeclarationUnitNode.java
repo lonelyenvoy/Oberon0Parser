@@ -16,4 +16,9 @@ public class TypeDeclarationUnitNode extends Node {
         this.identifierNode = identifierNode;
         this.typeNode = typeNode;
     }
+
+    @Override
+    public String toString() {
+        return identifierNode.toString() + " = " + typeNode.toString() + "; ";
+    }
 }

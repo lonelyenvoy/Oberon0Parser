@@ -16,4 +16,9 @@ public class ProcedureDeclarationNode extends Node {
         this.procedureHeadingNode = procedureHeadingNode;
         this.procedureBodyNode = procedureBodyNode;
     }
+
+    @Override
+    public String toString() {
+        return procedureHeadingNode.toString() + "; " + procedureBodyNode.toString();
+    }
 }

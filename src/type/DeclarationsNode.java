@@ -31,4 +31,17 @@ public class DeclarationsNode extends Node {
         this.varDeclarationNode = varDeclarationNode;
         this.procedureDeclarationNodes = procedureDeclarationNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(constDeclarationNode.toString());
+        builder.append(typeDeclarationNode.toString());
+        builder.append(varDeclarationNode.toString());
+        for (ProcedureDeclarationNode node : procedureDeclarationNodes) {
+            builder.append(node.toString());
+            builder.append("; ");
+        }
+        return builder.toString();
+    }
 }

@@ -36,4 +36,16 @@ public class VarDeclarationNode extends Node implements NodeDequeContainer<VarDe
     public Deque<VarDeclarationUnitNode> getContainer() {
         return varDeclarationUnitNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (!varDeclarationUnitNodes.isEmpty()) {
+            builder.append("VAR ");
+            for (VarDeclarationUnitNode node : varDeclarationUnitNodes) {
+                builder.append(node.toString());
+            }
+        }
+        return builder.toString();
+    }
 }

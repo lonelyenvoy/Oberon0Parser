@@ -36,4 +36,16 @@ public class TypeDeclarationNode extends Node implements NodeDequeContainer<Type
     public Deque<TypeDeclarationUnitNode> getContainer() {
         return typeDeclarationUnitNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (!typeDeclarationUnitNodes.isEmpty()) {
+            builder.append("TYPE ");
+            for (TypeDeclarationUnitNode node : typeDeclarationUnitNodes) {
+                builder.append(node.toString());
+            }
+        }
+        return builder.toString();
+    }
 }
