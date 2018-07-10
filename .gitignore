@@ -127,3 +127,9 @@ Temporary Items
 *.iml
 out
 gen
+
+# uncommon libs
+!/lib/java-cup-11b.jar
+!/lib/java-cup-11b-runtime.jar
+!/lib/jgraph.jar
+!/lib/flowchart.jar
