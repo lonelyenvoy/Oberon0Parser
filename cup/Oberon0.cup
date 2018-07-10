@@ -3,12 +3,16 @@ package grammar;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileReader;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import java_cup.runtime.Symbol;
+import type.*;
 
 action code
 {:
-
+    HashMap<String, Object> identifierMap = new HashMap<>();
 :};
 
 parser code
@@ -45,516 +49,606 @@ terminal LEFT_ROUND_BRACKET, RIGHT_ROUND_BRACKET, DOT, COLON;
 terminal String IDENTIFIER;
 terminal String INTEGER;
 
-non terminal Module;                        // ok
-non terminal ModuleBeginSection;            // ok
-non terminal StatementSequence;             // ok
-non terminal Declarations;                  // ok
-non terminal ConstDeclaration;              // ok
-non terminal ConstIdentifierDeclaration;    // ok
-non terminal TypeDeclaration;               // ok
-non terminal TypeIdentifierDeclaration;     // ok
-non terminal VarDeclaration;                // ok
-non terminal VarIdentifierDeclaration;      // ok
-non terminal ProcedureDeclarations;         // ok
-non terminal ProcedureDeclaration;          // ok
-non terminal Expression;                    // ok
-non terminal Type;                          // ok
-non terminal IdentifierList;                // ok
-non terminal ProcedureHeading;              // ok
-non terminal ProcedureBody;                 // ok
-non terminal FormalParameters;              // ok
-non terminal ProcedureBodyBeginSection;     // ok
-non terminal WrappedFormalParameters;       // ok
-non terminal FormalParameterSections;       // ok
-non terminal FormalParameterSection;        // ok
-non terminal ArrayType;                     // ok
-non terminal RecordType;                    // ok
-non terminal FieldLists;                    // ok
-non terminal FieldList;                     // ok
-non terminal Identifiers;                   // ok
-non terminal Statement;                     // ok
-non terminal Statements;                    // ok
-non terminal Assignment;                    // ok
-non terminal ProcedureCall;                 // ok
-non terminal IfStatement;                   // ok
-non terminal WhileStatement;                // ok
-non terminal ElseIfStatement;               // ok
-non terminal ElseStatement;                 // ok
-non terminal ActualParameters;              // ok
-non terminal ExpressionList;                // ok
-non terminal Expressions;                   // ok
-non terminal Selector;                      // ok
-non terminal SimpleExpression;              // ok
-non terminal ComparingSimpleExpression;     // ok
-non terminal ComparisonOperator;            // ok
-non terminal Term;                          // ok
-non terminal SpecifiedOperatorI;            // ok
-non terminal TermSequence;                  // ok
-non terminal SpecifiedOperatorII;           // ok
-non terminal Factor;                        // ok
-non terminal FactorSequence;                // ok
-non terminal SpecifiedOperatorIII;          // ok
-non terminal Number;                        // ok
+non terminal ModuleNode Module;                                         // ok ok
+non terminal StatementSequenceNode ModuleBeginSection;                  // ok ok
+non terminal StatementSequenceNode StatementSequence;                   // ok ok
+non terminal DeclarationsNode Declarations;                             // ok ok
+non terminal ConstDeclarationNode ConstDeclaration;                     // ok ok
+non terminal List<ConstDeclarationUnitNode> ConstIdentifierDeclaration; // ok ok
+non terminal TypeDeclarationNode TypeDeclaration;                       // ok ok
+non terminal List<TypeDeclarationUnitNode> TypeIdentifierDeclaration;   // ok ok
+non terminal VarDeclarationNode VarDeclaration;                         // ok ok
+non terminal List<VarDeclarationUnitNode> VarIdentifierDeclaration;     // ok ok
+non terminal List<ProcedureDeclarationNode> ProcedureDeclarations;      // ok ok
+non terminal ProcedureDeclarationNode ProcedureDeclaration;             // ok ok
+non terminal ExpressionNode Expression;                                 // ok ok
+non terminal TypeNode Type;                                             // ok ok
+non terminal IdentifierListNode IdentifierList;                         // ok ok
+non terminal ProcedureHeadingNode ProcedureHeading;                     // ok ok
+non terminal ProcedureBodyNode ProcedureBody;                           // ok ok
+non terminal FormalParametersNode FormalParameters;                     // ok ok
+non terminal StatementSequenceNode ProcedureBodyBeginSection;           // ok ok
+non terminal FormalParametersNode WrappedFormalParameters;              // ok ok
+non terminal List<FormalParameterSectionNode> FormalParameterSections;  // ok ok
+non terminal FormalParameterSectionNode FormalParameterSection;         // ok ok
+non terminal ArrayTypeNode ArrayType;                                   // ok ok
+non terminal RecordTypeNode RecordType;                                 // ok ok
+non terminal List<FieldListNode> FieldLists;                            // ok ok
+non terminal FieldListNode FieldList;                                   // ok ok
+non terminal IdentifierListNode Identifiers;                            // ok ok
+non terminal StatementNode Statement;                                   // ok ok
+non terminal StatementSequenceNode Statements;                          // ok ok
+non terminal AssignmentNode Assignment;                                 // ok ok
+non terminal ProcedureCallNode ProcedureCall;                           // ok ok
+non terminal IfStatementNode IfStatement;                               // ok ok
+non terminal WhileStatementNode WhileStatement;                         // ok ok
+non terminal List<ConditionalStatementUnitNode> ElseIfStatement;        // ok ok
+non terminal StatementSequenceNode ElseStatement;                       // ok ok
+non terminal ActualParametersNode ActualParameters;                     // ok ok
+non terminal ExpressionsNode ExpressionList;                            // ok ok
+non terminal ExpressionsNode Expressions;                               // ok ok
+non terminal SelectorNode Selector;                                     // ok ok
+non terminal SimpleExpressionNode SimpleExpression;                     // ok ok
+non terminal ComparingSimpleExpressionNode ComparingSimpleExpression;   // ok ok
+non terminal Operator ComparisonOperator;                               // ok ok
+non terminal TermNode Term;                                             // ok ok
+non terminal Operator SpecifiedOperatorI;                               // ok ok
+non terminal List<OperatedTermNode> TermSequence;                       // ok ok
+non terminal Operator SpecifiedOperatorII;                              // ok ok
+non terminal FactorNode Factor;                                         // ok ok
+non terminal List<OperatedFactorNode> FactorSequence;                   // ok ok
+non terminal Operator SpecifiedOperatorIII;                             // ok ok
+non terminal NumberNode Number;                                         // ok ok
 
 
 start with Module;
 
 
-Module                      ::= MODULE IDENTIFIER:id1 SEMICOLON Declarations
-                                ModuleBeginSection
-                                END IDENTIFIER:id2 DOT
+Module                      ::= MODULE IDENTIFIER:beginIdentifier SEMICOLON Declarations:declarations
+                                ModuleBeginSection:moduleBeginSection
+                                END IDENTIFIER:endIdentifier DOT
                                 {:
-
+                                    if (moduleBeginSection == null) {
+                                        moduleBeginSection = new StatementSequenceNode();
+                                    }
+                                    RESULT = new ModuleNode(
+                                        new IdentifierNode(beginIdentifier),
+                                        declarations,
+                                        moduleBeginSection,
+                                        new IdentifierNode(endIdentifier)
+                                    );
                                 :}
                             ;
-ModuleBeginSection          ::= BEGIN StatementSequence
+ModuleBeginSection          ::= BEGIN StatementSequence:statementSequence
                                 {:
+                                    RESULT = statementSequence;
+                                :}
+                            |   // empty
+                            ;
+Declarations                ::= ConstDeclaration:constDeclaration
+                                TypeDeclaration:typeDeclaration
+                                VarDeclaration:varDeclaration
+                                ProcedureDeclarations:procedureDeclarations
+                                {:
+                                    // constDeclaration is nullable
+                                    // typeDeclaration is nullable
+                                    // varDeclaration is nullable
+                                    // procedureDeclarations is nullable
 
+                                    if (constDeclaration == null) {
+                                        constDeclaration = new ConstDeclarationNode();
+                                    }
+                                    if (typeDeclaration == null) {
+                                        typeDeclaration = new TypeDeclarationNode();
+                                    }
+                                    if (varDeclaration == null) {
+                                        varDeclaration = new VarDeclarationNode();
+                                    }
+                                    if (procedureDeclarations == null) {
+                                        procedureDeclarations = new ArrayList<ProcedureDeclarationNode>();
+                                    }
+                                    RESULT = new DeclarationsNode(
+                                        constDeclaration, typeDeclaration, varDeclaration, procedureDeclarations);
+                                :}
+                            ;
+ConstDeclaration            ::= CONST ConstIdentifierDeclaration:constIdentifierDeclaration
+                                {:
+                                    if (constIdentifierDeclaration == null) {
+                                        constIdentifierDeclaration = new ArrayList<ConstDeclarationUnitNode>();
+                                    }
+                                    RESULT = new ConstDeclarationNode(constIdentifierDeclaration);
+                                :}
+                            |   // empty
+                            ;
+ConstIdentifierDeclaration  ::= IDENTIFIER:identifier EQUAL Expression:expression
+                                SEMICOLON ConstIdentifierDeclaration:constIdentifierDeclaration
+                                {:
+                                    if (constIdentifierDeclaration == null) {
+                                        constIdentifierDeclaration = new ArrayList<ConstDeclarationUnitNode>();
+                                    }
+                                    constIdentifierDeclaration.add(
+                                        new ConstDeclarationUnitNode(new IdentifierNode(identifier), expression));
+                                    RESULT = constIdentifierDeclaration;
+                                :}
+                            |   // empty
+                            ;
+TypeDeclaration             ::= TYPE TypeIdentifierDeclaration:typeIdentifierDeclaration
+                                {:
+                                    if (typeIdentifierDeclaration == null) {
+                                        typeIdentifierDeclaration = new ArrayList<TypeDeclarationUnitNode>();
+                                    }
+                                    RESULT = new TypeDeclarationNode(typeIdentifierDeclaration);
+                                :}
+                            |   // empty
+                            ;
+TypeIdentifierDeclaration   ::= IDENTIFIER:identifier EQUAL Type:type SEMICOLON
+                                TypeIdentifierDeclaration:typeIdentifierDeclaration
+                                {:
+                                    if (typeIdentifierDeclaration == null) {
+                                        typeIdentifierDeclaration = new ArrayList<TypeDeclarationUnitNode>();
+                                    }
+                                    typeIdentifierDeclaration.add(new TypeDeclarationUnitNode(
+                                        new IdentifierNode(identifier), type));
+                                    RESULT = typeIdentifierDeclaration;
+                                :}
+                            |   // empty
+                            ;
+VarDeclaration              ::= VAR VarIdentifierDeclaration:varIdentifierDeclaration
+                                {:
+                                    if (varIdentifierDeclaration == null) {
+                                        varIdentifierDeclaration = new ArrayList<VarDeclarationUnitNode>();
+                                    }
+                                    RESULT = new VarDeclarationNode(varIdentifierDeclaration);
+                                :}
+                            |   // empty
+                            ;
+VarIdentifierDeclaration    ::= IdentifierList:identifierList COLON Type:type SEMICOLON
+                                VarIdentifierDeclaration:varIdentifierDeclaration
+                                {:
+                                    if (varIdentifierDeclaration == null) {
+                                        varIdentifierDeclaration = new ArrayList<VarDeclarationUnitNode>();
+                                    }
+                                    varIdentifierDeclaration.add(new VarDeclarationUnitNode(identifierList, type));
+                                    RESULT = varIdentifierDeclaration;
+                                :}
+                            |   // empty
+                            ;
+ProcedureDeclarations       ::= ProcedureDeclaration:procedureDeclaration
+                                SEMICOLON
+                                ProcedureDeclarations:procedureDeclarations
+                                {:
+                                    if (procedureDeclarations == null) {
+                                        procedureDeclarations = new ArrayList<ProcedureDeclarationNode>();
+                                    }
+                                    procedureDeclarations.add(procedureDeclaration);
+                                    RESULT = procedureDeclarations;
+                                :}
+                            |   // empty
+                            ;
+ProcedureDeclaration        ::= ProcedureHeading:procedureHeading SEMICOLON ProcedureBody:procedureBody
+                                {:
+                                    RESULT = new ProcedureDeclarationNode(procedureHeading, procedureBody);
+                                :}
+                            ;
+ProcedureHeading            ::= PROCEDURE IDENTIFIER:identifier WrappedFormalParameters:wrappedFormalParameters
+                                {:
+                                    if (wrappedFormalParameters == null) {
+                                        wrappedFormalParameters = new FormalParametersNode();
+                                    }
+                                    RESULT = new ProcedureHeadingNode(
+                                        new IdentifierNode(identifier), wrappedFormalParameters);
+                                :}
+                            ;
+ProcedureBody               ::= Declarations:declarations
+                                ProcedureBodyBeginSection:procedureBodyBeginSection
+                                END IDENTIFIER:identifier
+                                {:
+                                    if (procedureBodyBeginSection == null) {
+                                        procedureBodyBeginSection = new StatementSequenceNode();
+                                    }
+                                    RESULT = new ProcedureBodyNode(
+                                        declarations, procedureBodyBeginSection, new IdentifierNode(identifier));
+                                :}
+                            ;
+ProcedureBodyBeginSection   ::= BEGIN StatementSequence:statementSequenceNode
+                                {:
+                                    RESULT = statementSequenceNode;
+                                :}
+                            |   // empty
+                            ;
+WrappedFormalParameters     ::= LEFT_ROUND_BRACKET FormalParameters:formalParameters RIGHT_ROUND_BRACKET
+                                {:
+                                    if (formalParameters == null) {
+                                        formalParameters = new FormalParametersNode();
+                                    }
+                                    RESULT = formalParameters;
+                                :}
+                            |   // empty
+                            ;
+FormalParameters            ::= FormalParameterSection:formalParameterSection
+                                FormalParameterSections:formalParameterSections
+                                {:
+                                    if (formalParameterSections == null) {
+                                        formalParameterSections = new ArrayList<FormalParameterSectionNode>();
+                                    }
+                                    formalParameterSections.add(formalParameterSection);
+                                    RESULT = new FormalParametersNode(formalParameterSections);
+                                :}
+                            |   // empty
+                            ;
+FormalParameterSections     ::= SEMICOLON
+                                FormalParameterSection:formalParameterSection
+                                FormalParameterSections:formalParameterSections
+                                {:
+                                    if (formalParameterSections == null) {
+                                        formalParameterSections = new ArrayList<FormalParameterSectionNode>();
+                                    }
+                                    formalParameterSections.add(formalParameterSection);
+                                    RESULT = formalParameterSections;
+                                :}
+                            |   // empty
+                            ;
+FormalParameterSection      ::= IdentifierList:identifierList COLON Type:type
+                                {:
+                                    RESULT = new FormalParameterSectionNode(false, identifierList, type);
+                                :}
+                            |   VAR IdentifierList:identifierList COLON Type:type
+                                {:
+                                    RESULT = new FormalParameterSectionNode(true, identifierList, type);
+                                :}
+                            ;
+Type                        ::= IDENTIFIER:identifier
+                                {:
+                                    RESULT = new IdentifierTypeNode(new IdentifierNode(identifier));
+                                :}
+                            |   ArrayType:arrayType
+                                {:
+                                    RESULT = arrayType;
+                                :}
+                            |   RecordType:recordType
+                                {:
+                                    RESULT = recordType;
+                                :}
+                            ;
+RecordType                  ::= RECORD FieldList:fieldList FieldLists:fieldLists END
+                                {:
+                                    if (fieldLists == null) {
+                                        fieldLists = new ArrayList<FieldListNode>();
+                                    }
+                                    if (fieldList != null) {
+                                        fieldLists.add(fieldList);
+                                    }
+                                    RESULT = new RecordTypeNode(fieldLists);
+                                :}
+                            ;
+FieldLists                  ::= SEMICOLON FieldList:fieldList FieldLists:fieldLists
+                                {:
+                                    if (fieldLists == null) {
+                                        fieldLists = new ArrayList<FieldListNode>();
+                                    }
+                                    if (fieldList != null) {
+                                        fieldLists.add(fieldList);
+                                    }
+                                    RESULT = fieldLists;
+                                :}
+                            |   // empty
+                            ;
+FieldList                   ::= IdentifierList:identifierList COLON Type:type
+                                {:
+                                    RESULT = new FieldListNode(identifierList, type);
+                                :}
+                            |   // empty
+                            ;
+ArrayType                   ::= ARRAY Expression:expression OF Type:type
+                                {:
+                                    RESULT = new ArrayTypeNode(expression, type);
+                                :}
+                            ;
+IdentifierList              ::= IDENTIFIER:identifier Identifiers:identifiers
+                                {:
+                                    if (identifiers == null) {
+                                        identifiers = new IdentifierListNode();
+                                    }
+                                    identifiers.add(new IdentifierNode(identifier));
+                                    RESULT = identifiers;
+                                :}
+                            ;
+Identifiers                 ::= COMMA IDENTIFIER:identifier Identifiers:identifiers
+                                {:
+                                    if (identifiers == null) {
+                                        identifiers = new IdentifierListNode();
+                                    }
+                                    identifiers.add(new IdentifierNode(identifier));
+                                    RESULT = identifiers;
+                                :}
+                            |   // empty
+                            ;
+StatementSequence           ::= Statement:statement Statements:statements
+                                {:
+                                    if (statements == null) {
+                                        statements = new StatementSequenceNode();
+                                    }
+                                    statements.add(statement);
+                                    RESULT = statements;
+                                :}
+                            ;
+Statements                  ::= SEMICOLON Statement:statement Statements:statements
+                                {:
+                                    if (statements == null) {
+                                        statements = new StatementSequenceNode();
+                                    }
+                                    statements.add(statement);
+                                    RESULT = statements;
+                                :}
+                            |   // empty
+                            ;
+Statement                   ::= Assignment:assignment
+                                {:
+                                    RESULT = assignment;
+                                :}
+                            |   ProcedureCall:procedureCall
+                                {:
+                                    RESULT = procedureCall;
+                                :}
+                            |   IfStatement:ifStatement
+                                {:
+                                    RESULT = ifStatement;
+                                :}
+                            |   WhileStatement:whileStatement
+                                {:
+                                    RESULT = whileStatement;
                                 :}
                             |   // empty
                                 {:
-
+                                    RESULT = new NullStatementNode();
                                 :}
                             ;
-Declarations                ::= ConstDeclaration
-                                TypeDeclaration
-                                VarDeclaration
-                                ProcedureDeclarations
+WhileStatement              ::= WHILE Expression:expression DO StatementSequence:statementSequence END
                                 {:
-
+                                    RESULT = new WhileStatementNode(expression, statementSequence);
                                 :}
                             ;
-ConstDeclaration            ::= CONST ConstIdentifierDeclaration
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-ConstIdentifierDeclaration  ::= IDENTIFIER EQUAL Expression SEMICOLON ConstIdentifierDeclaration
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-TypeDeclaration             ::= TYPE TypeIdentifierDeclaration
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-TypeIdentifierDeclaration   ::= IDENTIFIER EQUAL Type SEMICOLON TypeIdentifierDeclaration
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-VarDeclaration              ::= VAR VarIdentifierDeclaration
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-VarIdentifierDeclaration    ::= IdentifierList COLON Type SEMICOLON VarIdentifierDeclaration
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-ProcedureDeclarations       ::= ProcedureDeclaration SEMICOLON ProcedureDeclarations
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-ProcedureDeclaration        ::= ProcedureHeading SEMICOLON ProcedureBody
-                                {:
-
-                                :}
-                            ;
-ProcedureHeading            ::= PROCEDURE IDENTIFIER WrappedFormalParameters
-                                {:
-
-                                :}
-                            ;
-ProcedureBody               ::= Declarations
-                                ProcedureBodyBeginSection
-                                END IDENTIFIER
-                                {:
-
-                                :}
-                            ;
-ProcedureBodyBeginSection   ::= BEGIN StatementSequence
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-WrappedFormalParameters     ::= LEFT_ROUND_BRACKET FormalParameters RIGHT_ROUND_BRACKET
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-FormalParameters            ::= FormalParameterSection FormalParameterSections
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-FormalParameterSections     ::= SEMICOLON FormalParameterSection FormalParameterSections
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-FormalParameterSection      ::= IdentifierList COLON Type
-                                {:
-
-                                :}
-                            |   VAR IdentifierList COLON Type
-                                {:
-
-                                :}
-                            ;
-Type                        ::= IDENTIFIER
-                                {:
-
-                                :}
-                            |   ArrayType
-                                {:
-
-                                :}
-                            |   RecordType
-                                {:
-
-                                :}
-                            ;
-RecordType                  ::= RECORD FieldList FieldLists END
-                                {:
-
-                                :}
-                            ;
-FieldLists                  ::= SEMICOLON FieldList FieldLists
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-FieldList                   ::= IdentifierList COLON Type
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-ArrayType                   ::= ARRAY Expression OF Type
-                                {:
-
-                                :}
-                            ;
-IdentifierList              ::= IDENTIFIER Identifiers
-                                {:
-
-                                :}
-                            ;
-Identifiers                 ::= COMMA IDENTIFIER Identifiers
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-StatementSequence           ::= Statement Statements
-                                {:
-
-                                :}
-                            |   error Statements
-                                {:
-
-                                :}
-                            ;
-Statements                  ::= SEMICOLON Statement Statements
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-Statement                   ::= Assignment Statement
-                                {:
-
-                                :}
-                            |   ProcedureCall Statement
-                                {:
-
-                                :}
-                            |   IfStatement Statement
-                                {:
-
-                                :}
-                            |   WhileStatement Statement
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
-                            ;
-WhileStatement              ::= WHILE Expression DO StatementSequence END
-                                {:
-
-                                :}
-                            ;
-IfStatement                 ::= IF Expression THEN StatementSequence
-                                ElseIfStatement
-                                ElseStatement
+IfStatement                 ::= IF Expression:ifExpression THEN StatementSequence:ifStatementSequence
+                                ElseIfStatement:elseIfStatement
+                                ElseStatement:elseStatement
                                 END
                                 {:
-
+                                    // elseStatement is nullable
+                                    if (elseIfStatement == null) {
+                                        elseIfStatement = new ArrayList<ConditionalStatementUnitNode>();
+                                    }
+                                    RESULT = new IfStatementNode(
+                                        new ConditionalStatementUnitNode(ifExpression, ifStatementSequence),
+                                        elseIfStatement,
+                                        elseStatement
+                                    );
                                 :}
                             ;
-ElseIfStatement             ::= ELSIF Expression THEN StatementSequence ElseIfStatement
+ElseIfStatement             ::= ELSIF Expression:expression THEN StatementSequence:statementSequence
+                                ElseIfStatement:elseIfStatement
                                 {:
-
+                                    if (elseIfStatement == null) {
+                                        elseIfStatement = new ArrayList<ConditionalStatementUnitNode>();
+                                    }
+                                    elseIfStatement.add(
+                                        new ConditionalStatementUnitNode(expression, statementSequence));
+                                    RESULT = elseIfStatement;
                                 :}
                             |   // empty
-                                {:
-
-                                :}
                             ;
-ElseStatement               ::= ELSE StatementSequence
+ElseStatement               ::= ELSE StatementSequence:statementSequence
                                 {:
-
+                                    RESULT = statementSequence;
                                 :}
                             |   // empty
+                            ;
+ProcedureCall               ::= IDENTIFIER:identifier ActualParameters:actualParameters
                                 {:
-
+                                    RESULT = new ProcedureCallNode(new IdentifierNode(identifier), actualParameters);
                                 :}
                             ;
-ProcedureCall               ::= IDENTIFIER ActualParameters
+ActualParameters            ::= LEFT_ROUND_BRACKET ExpressionList:expressions RIGHT_ROUND_BRACKET
                                 {:
-
+                                    if (expressions == null) {
+                                        expressions = new ActualParametersNode();
+                                    }
+                                    RESULT = new ActualParametersNode(expressions);
                                 :}
                             ;
-ActualParameters            ::= LEFT_ROUND_BRACKET ExpressionList RIGHT_ROUND_BRACKET
+ExpressionList              ::= Expression:expression Expressions:expressions
                                 {:
-
+                                    if (expressions == null) {
+                                        expressions = new ExpressionsNode();
+                                    }
+                                    expressions.add(expression);
+                                    RESULT = expressions;
                                 :}
                             |   // empty
-                                {:
-
-                                :}
                             ;
-ExpressionList              ::= Expression Expressions
+Expressions                 ::= COMMA Expression:expression Expressions:expressions
                                 {:
-
+                                    if (expressions == null) {
+                                        expressions = new ExpressionsNode();
+                                    }
+                                    expressions.add(expression);
+                                    RESULT = expressions;
                                 :}
                             |   // empty
+                            ;
+Assignment                  ::= IDENTIFIER:identifier Selector:selector ASSIGN Expression:expression
                                 {:
-
+                                    RESULT = new AssignmentNode(
+                                        new SelectedIdentifierNode(
+                                            new IdentifierNode(identifier),
+                                            selector),
+                                        expression);
                                 :}
                             ;
-Expressions                 ::= COMMA Expression Expressions
+Expression                  ::= SimpleExpression:simpleExpression ComparingSimpleExpression:comparingSimpleExpression
                                 {:
-
+                                    // comparingSimpleExpression can be null
+                                    if (comparingSimpleExpression == null) {
+                                        RESULT = new ExpressionNode(simpleExpression);
+                                    } else {
+                                        RESULT = new ExpressionNode(simpleExpression,
+                                                                    comparingSimpleExpression.operator,
+                                                                    comparingSimpleExpression.simpleExpressionNode);
+                                    }
+                                :}
+                            ;
+ComparingSimpleExpression   ::= ComparisonOperator:operator SimpleExpression:simpleExpression
+                                {:
+                                    RESULT = new ComparingSimpleExpressionNode(operator, simpleExpression);
                                 :}
                             |   // empty
-                                {:
-
-                                :}
-                            ;
-Assignment                  ::= IDENTIFIER Selector ASSIGN Expression
-                                {:
-
-                                :}
-                            ;
-Expression                  ::= SimpleExpression ComparingSimpleExpression
-                                {:
-
-                                :}
-                            ;
-ComparingSimpleExpression   ::= ComparisonOperator SimpleExpression
-                                {:
-
-                                :}
-                            |   // empty
-                                {:
-
-                                :}
                             ;
 ComparisonOperator          ::= EQUAL
                                 {:
-
+                                    RESULT = Operator.EQUAL;
                                 :}
                             |   NOT_EQUAL
                                 {:
-
+                                    RESULT = Operator.NOT_EQUAL;
                                 :}
                             |   LESS
                                 {:
-
+                                    RESULT = Operator.LESS;
                                 :}
                             |   LESS_OR_EQUAL
                                 {:
-
+                                    RESULT = Operator.LESS_OR_EQUAL;
                                 :}
                             |   GREATER
                                 {:
-
+                                    RESULT = Operator.GREATER;
                                 :}
                             |   GREATER_OR_EQUAL
                                 {:
-
+                                    RESULT = Operator.GREATER_OR_EQUAL;
                                 :}
                             ;
-SimpleExpression            ::= SpecifiedOperatorI Term TermSequence
+SimpleExpression            ::= SpecifiedOperatorI:operator Term:term TermSequence:termSequence
                                 {:
-
+                                    if (termSequence == null) {
+                                        termSequence = new ArrayList<OperatedTermNode>();
+                                    }
+                                    RESULT = new SimpleExpressionNode(operator, term, termSequence);
                                 :}
                             ;
-TermSequence                ::= SpecifiedOperatorII Term TermSequence
+TermSequence                ::= SpecifiedOperatorII:operator Term:term TermSequence:termSequence
                                 {:
-
+                                    if (termSequence == null) {
+                                        termSequence = new ArrayList<OperatedTermNode>();
+                                    }
+                                    termSequence.add(new OperatedTermNode(operator, term));
+                                    RESULT = termSequence;
                                 :}
                             |   // empty
-                                {:
-
-                                :}
                             ;
 SpecifiedOperatorI          ::= ADD
                                 {:
-
+                                    RESULT = Operator.ADD;
                                 :}
                             |   SUBTRACT
                                 {:
-
+                                    RESULT = Operator.SUBTRACT;
                                 :}
                             |   // empty
                                 {:
-
+                                    RESULT = Operator.NONE;
                                 :}
                             ;
 SpecifiedOperatorII         ::= ADD
                                 {:
-
+                                    RESULT = Operator.ADD;
                                 :}
                             |   SUBTRACT
                                 {:
-
+                                    RESULT = Operator.SUBTRACT;
                                 :}
                             |   OR
                                 {:
-
+                                    RESULT = Operator.OR;
                                 :}
                             ;
-Term                        ::= Factor FactorSequence
+Term                        ::= Factor:factor FactorSequence:factorSequence
                                 {:
-
+                                    if (factorSequence == null) {
+                                        factorSequence = new ArrayList<OperatedFactorNode>();
+                                    }
+                                    RESULT = new TermNode(factor, factorSequence);
                                 :}
                             ;
-FactorSequence              ::= SpecifiedOperatorIII Factor FactorSequence
+FactorSequence              ::= SpecifiedOperatorIII:operator Factor:factor FactorSequence:factorSequence
                                 {:
-
+                                    if (factorSequence == null) {
+                                        factorSequence = new ArrayList<OperatedFactorNode>();
+                                    }
+                                    factorSequence.add(new OperatedFactorNode(operator, factor));
+                                    RESULT = factorSequence;
                                 :}
                             |   // empty
-                                {:
-
-                                :}
                             ;
 SpecifiedOperatorIII        ::= MULTIPLY
                                 {:
-
+                                    RESULT = Operator.MULTIPLY;
                                 :}
                             |   DIVIDE
                                 {:
-
+                                    RESULT = Operator.DIVIDE;
                                 :}
                             |   MOD
                                 {:
-
+                                    RESULT = Operator.MOD;
                                 :}
                             |   AND
                                 {:
-
+                                    RESULT = Operator.AND;
                                 :}
                             ;
-Factor                      ::= IDENTIFIER Selector
+Factor                      ::= IDENTIFIER:identifier Selector:selector
                                 {:
-
+                                    // selector is nullable
+                                    if (selector == null) {
+                                        selector = new SelectorNode();
+                                    }
+                                    RESULT = new SelectedIdentifierNode(new IdentifierNode(identifier), selector);
                                 :}
-                            |   Number
+                            |   Number:number
                                 {:
-
+                                    RESULT = number;
                                 :}
-                            |   LEFT_ROUND_BRACKET Expression RIGHT_ROUND_BRACKET
+                            |   LEFT_ROUND_BRACKET Expression:expression RIGHT_ROUND_BRACKET
                                 {:
-
+                                    RESULT = new PrioritizedExpressionNode(expression);
                                 :}
-                            |   NOT Factor
+                            |   NOT Factor:factor
                                 {:
-
+                                    RESULT = new NegatedFactorNode(factor);
                                 :}
                             ;
-Number                      ::= INTEGER
+Number                      ::= INTEGER:integer
                                 {:
-
+                                    RESULT = new NumberNode(Integer.parseInt(integer));
                                 :}
                             ;
-Selector                    ::= DOT IDENTIFIER Selector
+Selector                    ::= DOT IDENTIFIER:identifier Selector:selector
                                 {:
-
+                                    if (selector == null) {
+                                        selector = new SelectorNode();
+                                    }
+                                    selector.add(new RecordSelectorUnitNode(new IdentifierNode(identifier)));
+                                    RESULT = selector;
                                 :}
-                            |   LEFT_SQUARE_BRACKET Expression RIGHT_SQUARE_BRACKET Selector
+                            |   LEFT_SQUARE_BRACKET Expression:expression RIGHT_SQUARE_BRACKET Selector:selector
                                 {:
-
+                                    if (selector == null) {
+                                        selector = new SelectorNode();
+                                    }
+                                    selector.add(new ArraySelectorUnitNode(expression));
+                                    RESULT = selector;
                                 :}
                             |   // empty
-                                {:
-
-                                :}
                             ;
 
 
