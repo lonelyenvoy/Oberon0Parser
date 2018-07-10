@@ -1,4 +1,4 @@
-package exception;
+package exception.lexer;
 
 public class IllegalSymbolException extends LexerException {
     public IllegalSymbolException() {}

@@ -1,8 +1,8 @@
 package grammar;
 
-import exception.LexerException;
-import exception.IllegalSymbolException;
-import exception.UnmatchedSymbolException;
+import exception.lexer.LexerException;
+import exception.lexer.IllegalSymbolException;
+import exception.lexer.UnmatchedSymbolException;
 
 import java_cup.runtime.Symbol;
 
