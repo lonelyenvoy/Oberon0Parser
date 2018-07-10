@@ -6,9 +6,6 @@ public class ActualParametersNode extends ExpressionsNode {
     }
 
     public ActualParametersNode(ExpressionsNode expressionsNode) {
-        if (expressionsNode == null) {
-            throw new IllegalArgumentException("expressionsNode cannot be null");
-        }
-        this.expressionNodes = expressionsNode.getExpressions();
+        super(expressionsNode.getContainer());
     }
 }

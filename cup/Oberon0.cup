@@ -3,8 +3,8 @@ package grammar;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileReader;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Deque;
+import java.util.ArrayDeque;
 import java.util.HashMap;
 
 import java_cup.runtime.Symbol;
@@ -54,12 +54,12 @@ non terminal StatementSequenceNode ModuleBeginSection;                  // ok ok
 non terminal StatementSequenceNode StatementSequence;                   // ok ok
 non terminal DeclarationsNode Declarations;                             // ok ok
 non terminal ConstDeclarationNode ConstDeclaration;                     // ok ok
-non terminal List<ConstDeclarationUnitNode> ConstIdentifierDeclaration; // ok ok
+non terminal Deque<ConstDeclarationUnitNode> ConstIdentifierDeclaration;// ok ok
 non terminal TypeDeclarationNode TypeDeclaration;                       // ok ok
-non terminal List<TypeDeclarationUnitNode> TypeIdentifierDeclaration;   // ok ok
+non terminal Deque<TypeDeclarationUnitNode> TypeIdentifierDeclaration;  // ok ok
 non terminal VarDeclarationNode VarDeclaration;                         // ok ok
-non terminal List<VarDeclarationUnitNode> VarIdentifierDeclaration;     // ok ok
-non terminal List<ProcedureDeclarationNode> ProcedureDeclarations;      // ok ok
+non terminal Deque<VarDeclarationUnitNode> VarIdentifierDeclaration;    // ok ok
+non terminal Deque<ProcedureDeclarationNode> ProcedureDeclarations;     // ok ok
 non terminal ProcedureDeclarationNode ProcedureDeclaration;             // ok ok
 non terminal ExpressionNode Expression;                                 // ok ok
 non terminal TypeNode Type;                                             // ok ok
@@ -69,11 +69,11 @@ non terminal ProcedureBodyNode ProcedureBody;                           // ok ok
 non terminal FormalParametersNode FormalParameters;                     // ok ok
 non terminal StatementSequenceNode ProcedureBodyBeginSection;           // ok ok
 non terminal FormalParametersNode WrappedFormalParameters;              // ok ok
-non terminal List<FormalParameterSectionNode> FormalParameterSections;  // ok ok
+non terminal Deque<FormalParameterSectionNode> FormalParameterSections; // ok ok
 non terminal FormalParameterSectionNode FormalParameterSection;         // ok ok
 non terminal ArrayTypeNode ArrayType;                                   // ok ok
 non terminal RecordTypeNode RecordType;                                 // ok ok
-non terminal List<FieldListNode> FieldLists;                            // ok ok
+non terminal Deque<FieldListNode> FieldLists;                           // ok ok
 non terminal FieldListNode FieldList;                                   // ok ok
 non terminal IdentifierListNode Identifiers;                            // ok ok
 non terminal StatementNode Statement;                                   // ok ok
@@ -82,7 +82,7 @@ non terminal AssignmentNode Assignment;                                 // ok ok
 non terminal ProcedureCallNode ProcedureCall;                           // ok ok
 non terminal IfStatementNode IfStatement;                               // ok ok
 non terminal WhileStatementNode WhileStatement;                         // ok ok
-non terminal List<ConditionalStatementUnitNode> ElseIfStatement;        // ok ok
+non terminal Deque<ConditionalStatementUnitNode> ElseIfStatement;       // ok ok
 non terminal StatementSequenceNode ElseStatement;                       // ok ok
 non terminal ActualParametersNode ActualParameters;                     // ok ok
 non terminal ExpressionsNode ExpressionList;                            // ok ok
@@ -93,10 +93,10 @@ non terminal ComparingSimpleExpressionNode ComparingSimpleExpression;   // ok ok
 non terminal Operator ComparisonOperator;                               // ok ok
 non terminal TermNode Term;                                             // ok ok
 non terminal Operator SpecifiedOperatorI;                               // ok ok
-non terminal List<OperatedTermNode> TermSequence;                       // ok ok
+non terminal Deque<OperatedTermNode> TermSequence;                      // ok ok
 non terminal Operator SpecifiedOperatorII;                              // ok ok
 non terminal FactorNode Factor;                                         // ok ok
-non terminal List<OperatedFactorNode> FactorSequence;                   // ok ok
+non terminal Deque<OperatedFactorNode> FactorSequence;                  // ok ok
 non terminal Operator SpecifiedOperatorIII;                             // ok ok
 non terminal NumberNode Number;                                         // ok ok
 
@@ -145,7 +145,7 @@ Declarations                ::= ConstDeclaration:constDeclaration
                                         varDeclaration = new VarDeclarationNode();
                                     }
                                     if (procedureDeclarations == null) {
-                                        procedureDeclarations = new ArrayList<ProcedureDeclarationNode>();
+                                        procedureDeclarations = new ArrayDeque<ProcedureDeclarationNode>();
                                     }
                                     RESULT = new DeclarationsNode(
                                         constDeclaration, typeDeclaration, varDeclaration, procedureDeclarations);
@@ -154,7 +154,7 @@ Declarations                ::= ConstDeclaration:constDeclaration
 ConstDeclaration            ::= CONST ConstIdentifierDeclaration:constIdentifierDeclaration
                                 {:
                                     if (constIdentifierDeclaration == null) {
-                                        constIdentifierDeclaration = new ArrayList<ConstDeclarationUnitNode>();
+                                        constIdentifierDeclaration = new ArrayDeque<ConstDeclarationUnitNode>();
                                     }
                                     RESULT = new ConstDeclarationNode(constIdentifierDeclaration);
                                 :}
@@ -164,9 +164,9 @@ ConstIdentifierDeclaration  ::= IDENTIFIER:identifier EQUAL Expression:expressio
                                 SEMICOLON ConstIdentifierDeclaration:constIdentifierDeclaration
                                 {:
                                     if (constIdentifierDeclaration == null) {
-                                        constIdentifierDeclaration = new ArrayList<ConstDeclarationUnitNode>();
+                                        constIdentifierDeclaration = new ArrayDeque<ConstDeclarationUnitNode>();
                                     }
-                                    constIdentifierDeclaration.add(
+                                    constIdentifierDeclaration.addFirst(
                                         new ConstDeclarationUnitNode(new IdentifierNode(identifier), expression));
                                     RESULT = constIdentifierDeclaration;
                                 :}
@@ -175,7 +175,7 @@ ConstIdentifierDeclaration  ::= IDENTIFIER:identifier EQUAL Expression:expressio
 TypeDeclaration             ::= TYPE TypeIdentifierDeclaration:typeIdentifierDeclaration
                                 {:
                                     if (typeIdentifierDeclaration == null) {
-                                        typeIdentifierDeclaration = new ArrayList<TypeDeclarationUnitNode>();
+                                        typeIdentifierDeclaration = new ArrayDeque<TypeDeclarationUnitNode>();
                                     }
                                     RESULT = new TypeDeclarationNode(typeIdentifierDeclaration);
                                 :}
@@ -185,9 +185,9 @@ TypeIdentifierDeclaration   ::= IDENTIFIER:identifier EQUAL Type:type SEMICOLON
                                 TypeIdentifierDeclaration:typeIdentifierDeclaration
                                 {:
                                     if (typeIdentifierDeclaration == null) {
-                                        typeIdentifierDeclaration = new ArrayList<TypeDeclarationUnitNode>();
+                                        typeIdentifierDeclaration = new ArrayDeque<TypeDeclarationUnitNode>();
                                     }
-                                    typeIdentifierDeclaration.add(new TypeDeclarationUnitNode(
+                                    typeIdentifierDeclaration.addFirst(new TypeDeclarationUnitNode(
                                         new IdentifierNode(identifier), type));
                                     RESULT = typeIdentifierDeclaration;
                                 :}
@@ -196,7 +196,7 @@ TypeIdentifierDeclaration   ::= IDENTIFIER:identifier EQUAL Type:type SEMICOLON
 VarDeclaration              ::= VAR VarIdentifierDeclaration:varIdentifierDeclaration
                                 {:
                                     if (varIdentifierDeclaration == null) {
-                                        varIdentifierDeclaration = new ArrayList<VarDeclarationUnitNode>();
+                                        varIdentifierDeclaration = new ArrayDeque<VarDeclarationUnitNode>();
                                     }
                                     RESULT = new VarDeclarationNode(varIdentifierDeclaration);
                                 :}
@@ -206,9 +206,9 @@ VarIdentifierDeclaration    ::= IdentifierList:identifierList COLON Type:type SE
                                 VarIdentifierDeclaration:varIdentifierDeclaration
                                 {:
                                     if (varIdentifierDeclaration == null) {
-                                        varIdentifierDeclaration = new ArrayList<VarDeclarationUnitNode>();
+                                        varIdentifierDeclaration = new ArrayDeque<VarDeclarationUnitNode>();
                                     }
-                                    varIdentifierDeclaration.add(new VarDeclarationUnitNode(identifierList, type));
+                                    varIdentifierDeclaration.addFirst(new VarDeclarationUnitNode(identifierList, type));
                                     RESULT = varIdentifierDeclaration;
                                 :}
                             |   // empty
@@ -218,9 +218,9 @@ ProcedureDeclarations       ::= ProcedureDeclaration:procedureDeclaration
                                 ProcedureDeclarations:procedureDeclarations
                                 {:
                                     if (procedureDeclarations == null) {
-                                        procedureDeclarations = new ArrayList<ProcedureDeclarationNode>();
+                                        procedureDeclarations = new ArrayDeque<ProcedureDeclarationNode>();
                                     }
-                                    procedureDeclarations.add(procedureDeclaration);
+                                    procedureDeclarations.addFirst(procedureDeclaration);
                                     RESULT = procedureDeclarations;
                                 :}
                             |   // empty
@@ -269,9 +269,9 @@ FormalParameters            ::= FormalParameterSection:formalParameterSection
                                 FormalParameterSections:formalParameterSections
                                 {:
                                     if (formalParameterSections == null) {
-                                        formalParameterSections = new ArrayList<FormalParameterSectionNode>();
+                                        formalParameterSections = new ArrayDeque<FormalParameterSectionNode>();
                                     }
-                                    formalParameterSections.add(formalParameterSection);
+                                    formalParameterSections.addFirst(formalParameterSection);
                                     RESULT = new FormalParametersNode(formalParameterSections);
                                 :}
                             |   // empty
@@ -281,9 +281,9 @@ FormalParameterSections     ::= SEMICOLON
                                 FormalParameterSections:formalParameterSections
                                 {:
                                     if (formalParameterSections == null) {
-                                        formalParameterSections = new ArrayList<FormalParameterSectionNode>();
+                                        formalParameterSections = new ArrayDeque<FormalParameterSectionNode>();
                                     }
-                                    formalParameterSections.add(formalParameterSection);
+                                    formalParameterSections.addFirst(formalParameterSection);
                                     RESULT = formalParameterSections;
                                 :}
                             |   // empty
@@ -313,10 +313,10 @@ Type                        ::= IDENTIFIER:identifier
 RecordType                  ::= RECORD FieldList:fieldList FieldLists:fieldLists END
                                 {:
                                     if (fieldLists == null) {
-                                        fieldLists = new ArrayList<FieldListNode>();
+                                        fieldLists = new ArrayDeque<FieldListNode>();
                                     }
                                     if (fieldList != null) {
-                                        fieldLists.add(fieldList);
+                                        fieldLists.addFirst(fieldList);
                                     }
                                     RESULT = new RecordTypeNode(fieldLists);
                                 :}
@@ -324,10 +324,10 @@ RecordType                  ::= RECORD FieldList:fieldList FieldLists:fieldLists
 FieldLists                  ::= SEMICOLON FieldList:fieldList FieldLists:fieldLists
                                 {:
                                     if (fieldLists == null) {
-                                        fieldLists = new ArrayList<FieldListNode>();
+                                        fieldLists = new ArrayDeque<FieldListNode>();
                                     }
                                     if (fieldList != null) {
-                                        fieldLists.add(fieldList);
+                                        fieldLists.addFirst(fieldList);
                                     }
                                     RESULT = fieldLists;
                                 :}
@@ -349,7 +349,7 @@ IdentifierList              ::= IDENTIFIER:identifier Identifiers:identifiers
                                     if (identifiers == null) {
                                         identifiers = new IdentifierListNode();
                                     }
-                                    identifiers.add(new IdentifierNode(identifier));
+                                    identifiers.addFirst(new IdentifierNode(identifier));
                                     RESULT = identifiers;
                                 :}
                             ;
@@ -358,7 +358,7 @@ Identifiers                 ::= COMMA IDENTIFIER:identifier Identifiers:identifi
                                     if (identifiers == null) {
                                         identifiers = new IdentifierListNode();
                                     }
-                                    identifiers.add(new IdentifierNode(identifier));
+                                    identifiers.addFirst(new IdentifierNode(identifier));
                                     RESULT = identifiers;
                                 :}
                             |   // empty
@@ -368,7 +368,7 @@ StatementSequence           ::= Statement:statement Statements:statements
                                     if (statements == null) {
                                         statements = new StatementSequenceNode();
                                     }
-                                    statements.add(statement);
+                                    statements.addFirst(statement);
                                     RESULT = statements;
                                 :}
                             ;
@@ -377,7 +377,7 @@ Statements                  ::= SEMICOLON Statement:statement Statements:stateme
                                     if (statements == null) {
                                         statements = new StatementSequenceNode();
                                     }
-                                    statements.add(statement);
+                                    statements.addFirst(statement);
                                     RESULT = statements;
                                 :}
                             |   // empty
@@ -413,9 +413,13 @@ IfStatement                 ::= IF Expression:ifExpression THEN StatementSequenc
                                 ElseStatement:elseStatement
                                 END
                                 {:
+                                    // elseIfStatement is nullable
                                     // elseStatement is nullable
                                     if (elseIfStatement == null) {
-                                        elseIfStatement = new ArrayList<ConditionalStatementUnitNode>();
+                                        elseIfStatement = new ArrayDeque<ConditionalStatementUnitNode>();
+                                    }
+                                    if (elseStatement == null) {
+                                        elseStatement = new StatementSequenceNode();
                                     }
                                     RESULT = new IfStatementNode(
                                         new ConditionalStatementUnitNode(ifExpression, ifStatementSequence),
@@ -428,9 +432,9 @@ ElseIfStatement             ::= ELSIF Expression:expression THEN StatementSequen
                                 ElseIfStatement:elseIfStatement
                                 {:
                                     if (elseIfStatement == null) {
-                                        elseIfStatement = new ArrayList<ConditionalStatementUnitNode>();
+                                        elseIfStatement = new ArrayDeque<ConditionalStatementUnitNode>();
                                     }
-                                    elseIfStatement.add(
+                                    elseIfStatement.addFirst(
                                         new ConditionalStatementUnitNode(expression, statementSequence));
                                     RESULT = elseIfStatement;
                                 :}
@@ -460,7 +464,7 @@ ExpressionList              ::= Expression:expression Expressions:expressions
                                     if (expressions == null) {
                                         expressions = new ExpressionsNode();
                                     }
-                                    expressions.add(expression);
+                                    expressions.addFirst(expression);
                                     RESULT = expressions;
                                 :}
                             |   // empty
@@ -470,13 +474,16 @@ Expressions                 ::= COMMA Expression:expression Expressions:expressi
                                     if (expressions == null) {
                                         expressions = new ExpressionsNode();
                                     }
-                                    expressions.add(expression);
+                                    expressions.addFirst(expression);
                                     RESULT = expressions;
                                 :}
                             |   // empty
                             ;
 Assignment                  ::= IDENTIFIER:identifier Selector:selector ASSIGN Expression:expression
                                 {:
+                                    if (selector == null) {
+                                        selector = new SelectorNode();
+                                    }
                                     RESULT = new AssignmentNode(
                                         new SelectedIdentifierNode(
                                             new IdentifierNode(identifier),
@@ -530,7 +537,7 @@ ComparisonOperator          ::= EQUAL
 SimpleExpression            ::= SpecifiedOperatorI:operator Term:term TermSequence:termSequence
                                 {:
                                     if (termSequence == null) {
-                                        termSequence = new ArrayList<OperatedTermNode>();
+                                        termSequence = new ArrayDeque<OperatedTermNode>();
                                     }
                                     RESULT = new SimpleExpressionNode(operator, term, termSequence);
                                 :}
@@ -538,9 +545,9 @@ SimpleExpression            ::= SpecifiedOperatorI:operator Term:term TermSequen
 TermSequence                ::= SpecifiedOperatorII:operator Term:term TermSequence:termSequence
                                 {:
                                     if (termSequence == null) {
-                                        termSequence = new ArrayList<OperatedTermNode>();
+                                        termSequence = new ArrayDeque<OperatedTermNode>();
                                     }
-                                    termSequence.add(new OperatedTermNode(operator, term));
+                                    termSequence.addFirst(new OperatedTermNode(operator, term));
                                     RESULT = termSequence;
                                 :}
                             |   // empty
@@ -574,7 +581,7 @@ SpecifiedOperatorII         ::= ADD
 Term                        ::= Factor:factor FactorSequence:factorSequence
                                 {:
                                     if (factorSequence == null) {
-                                        factorSequence = new ArrayList<OperatedFactorNode>();
+                                        factorSequence = new ArrayDeque<OperatedFactorNode>();
                                     }
                                     RESULT = new TermNode(factor, factorSequence);
                                 :}
@@ -582,9 +589,9 @@ Term                        ::= Factor:factor FactorSequence:factorSequence
 FactorSequence              ::= SpecifiedOperatorIII:operator Factor:factor FactorSequence:factorSequence
                                 {:
                                     if (factorSequence == null) {
-                                        factorSequence = new ArrayList<OperatedFactorNode>();
+                                        factorSequence = new ArrayDeque<OperatedFactorNode>();
                                     }
-                                    factorSequence.add(new OperatedFactorNode(operator, factor));
+                                    factorSequence.addFirst(new OperatedFactorNode(operator, factor));
                                     RESULT = factorSequence;
                                 :}
                             |   // empty
@@ -637,7 +644,7 @@ Selector                    ::= DOT IDENTIFIER:identifier Selector:selector
                                     if (selector == null) {
                                         selector = new SelectorNode();
                                     }
-                                    selector.add(new RecordSelectorUnitNode(new IdentifierNode(identifier)));
+                                    selector.addFirst(new RecordSelectorUnitNode(new IdentifierNode(identifier)));
                                     RESULT = selector;
                                 :}
                             |   LEFT_SQUARE_BRACKET Expression:expression RIGHT_SQUARE_BRACKET Selector:selector
@@ -645,7 +652,7 @@ Selector                    ::= DOT IDENTIFIER:identifier Selector:selector
                                     if (selector == null) {
                                         selector = new SelectorNode();
                                     }
-                                    selector.add(new ArraySelectorUnitNode(expression));
+                                    selector.addFirst(new ArraySelectorUnitNode(expression));
                                     RESULT = selector;
                                 :}
                             |   // empty

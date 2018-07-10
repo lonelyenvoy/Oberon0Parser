@@ -1,16 +1,35 @@
 package type;
 
-import java.util.ArrayList;
-import java.util.List;
+import type.base.NodeDequeContainer;
 
-public class ExpressionsNode extends Node {
-    public List<ExpressionNode> expressionNodes = new ArrayList<>();
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-    public List<ExpressionNode> getExpressions() {
-        return expressionNodes;
+public class ExpressionsNode extends Node implements NodeDequeContainer<ExpressionNode> {
+    public final Deque<ExpressionNode> expressionNodes;
+
+    public ExpressionsNode() {
+        this.expressionNodes = new ArrayDeque<>();
+    }
+    protected ExpressionsNode(Deque<ExpressionNode> expressionNodes) {
+        this.expressionNodes = expressionNodes;
     }
 
-    public void add(ExpressionNode expressionNode) {
-        expressionNodes.add(expressionNode);
+    @Override
+    public void addFirst(ExpressionNode expressionNode) {
+        if (expressionNode == null) {
+            throw new IllegalArgumentException("expressionNode cannot be null");
+        }
+        expressionNodes.addFirst(expressionNode);
+    }
+
+    @Override
+    public ExpressionNode getFirst() {
+        return expressionNodes.getFirst();
+    }
+
+    @Override
+    public Deque<ExpressionNode> getContainer() {
+        return expressionNodes;
     }
 }

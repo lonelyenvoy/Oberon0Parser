@@ -1,12 +1,17 @@
 package type;
 
-import java.util.List;
 
 public class SelectedIdentifierNode extends FactorNode {
-    public IdentifierNode identifierNode;
-    public SelectorNode selectorNode;
+    public final IdentifierNode identifierNode;
+    public final SelectorNode selectorNode;
 
     public SelectedIdentifierNode(IdentifierNode identifierNode, SelectorNode selectorNode) {
+        if (identifierNode == null) {
+            throw new IllegalArgumentException("identifierNode cannot be null");
+        }
+        if (selectorNode == null) {
+            throw new IllegalArgumentException("selectorNode cannot be null");
+        }
         this.identifierNode = identifierNode;
         this.selectorNode = selectorNode;
     }

@@ -1,9 +1,12 @@
 package type;
 
 public class RecordSelectorUnitNode extends SelectorUnitNode {
-    public IdentifierNode identifierNode;
+    public final IdentifierNode identifierNode;
 
     public RecordSelectorUnitNode(IdentifierNode identifierNode) {
+        if (identifierNode == null) {
+            throw new IllegalArgumentException("identifierNode cannot be null");
+        }
         this.identifierNode = identifierNode;
     }
 }

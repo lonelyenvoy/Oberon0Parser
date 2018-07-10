@@ -1,15 +1,25 @@
 package type;
 
+import java.util.Deque;
 import java.util.List;
 
 public class SimpleExpressionNode extends Node {
-    public Operator prefixOperator;
-    public TermNode termNode;
-    public List<OperatedTermNode> operatedTermNodes;
+    public final Operator prefixOperator;
+    public final TermNode termNode;
+    public final Deque<OperatedTermNode> operatedTermNodes;
 
     public SimpleExpressionNode(Operator prefixOperator,
                                 TermNode termNode,
-                                List<OperatedTermNode> operatedTermNodes) {
+                                Deque<OperatedTermNode> operatedTermNodes) {
+        if (prefixOperator == null) {
+            throw new IllegalArgumentException("prefixOperator cannot be null");
+        }
+        if (termNode == null) {
+            throw new IllegalArgumentException("termNode cannot be null");
+        }
+        if (operatedTermNodes == null) {
+            throw new IllegalArgumentException("operatedTermNodes cannot be null");
+        }
         this.prefixOperator = prefixOperator;
         this.termNode = termNode;
         this.operatedTermNodes = operatedTermNodes;

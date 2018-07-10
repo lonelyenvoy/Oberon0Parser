@@ -1,16 +1,28 @@
 package type;
 
-import java.util.ArrayList;
-import java.util.List;
+import type.base.NodeDequeContainer;
 
-public class IdentifierListNode extends Node {
-    public List<IdentifierNode> identifierNodes = new ArrayList<>();
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-    public List<IdentifierNode> getIdentifiers() {
-        return identifierNodes;
+public class IdentifierListNode extends Node implements NodeDequeContainer<IdentifierNode> {
+    public final Deque<IdentifierNode> identifierNodes = new ArrayDeque<>();
+
+    @Override
+    public void addFirst(IdentifierNode identifierNode) {
+        if (identifierNode == null) {
+            throw new IllegalArgumentException("identifierNode cannot be null");
+        }
+        identifierNodes.addFirst(identifierNode);
     }
 
-    public void add(IdentifierNode identifierNode) {
-        identifierNodes.add(identifierNode);
+    @Override
+    public IdentifierNode getFirst() {
+        return identifierNodes.getFirst();
+    }
+
+    @Override
+    public Deque<IdentifierNode> getContainer() {
+        return identifierNodes;
     }
 }

@@ -1,22 +1,38 @@
 package type;
 
-import java.util.List;
+import type.base.NodeDequeContainer;
 
-public class FormalParametersNode extends Node {
-    public List<FormalParameterSectionNode> formalParameterSectionNodes;
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class FormalParametersNode extends Node implements NodeDequeContainer<FormalParameterSectionNode> {
+    public final Deque<FormalParameterSectionNode> formalParameterSectionNodes;
 
     public FormalParametersNode() {
-
+        this.formalParameterSectionNodes = new ArrayDeque<>();
     }
-    public FormalParametersNode(List<FormalParameterSectionNode> formalParameterSectionNodes) {
+    public FormalParametersNode(Deque<FormalParameterSectionNode> formalParameterSectionNodes) {
+        if (formalParameterSectionNodes == null) {
+            throw new IllegalArgumentException("formalParameterSectionNodes cannot be null");
+        }
         this.formalParameterSectionNodes = formalParameterSectionNodes;
     }
 
-    public List<FormalParameterSectionNode> getFormalParameterSections() {
-        return formalParameterSectionNodes;
+    @Override
+    public void addFirst(FormalParameterSectionNode formalParameterSectionNode) {
+        if (formalParameterSectionNode == null) {
+            throw new IllegalArgumentException("formalParameterSectionNode cannot be null");
+        }
+        formalParameterSectionNodes.addFirst(formalParameterSectionNode);
     }
 
-    public void add(FormalParameterSectionNode formalParameterSectionNode) {
-        formalParameterSectionNodes.add(formalParameterSectionNode);
+    @Override
+    public FormalParameterSectionNode getFirst() {
+        return formalParameterSectionNodes.getFirst();
+    }
+
+    @Override
+    public Deque<FormalParameterSectionNode> getContainer() {
+        return formalParameterSectionNodes;
     }
 }

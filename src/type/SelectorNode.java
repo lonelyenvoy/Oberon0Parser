@@ -1,16 +1,28 @@
 package type;
 
-import java.util.ArrayList;
-import java.util.List;
+import type.base.NodeDequeContainer;
 
-public class SelectorNode extends Node {
-    public List<SelectorUnitNode> selectorUnitNodes = new ArrayList<>();
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-    public List<SelectorUnitNode> getUnits() {
-        return selectorUnitNodes;
+public class SelectorNode extends Node implements NodeDequeContainer<SelectorUnitNode> {
+    public final Deque<SelectorUnitNode> selectorUnitNodes = new ArrayDeque<>();
+
+    @Override
+    public void addFirst(SelectorUnitNode unitNode) {
+        if (unitNode == null) {
+            throw new IllegalArgumentException("unitNode cannot be null");
+        }
+        selectorUnitNodes.addFirst(unitNode);
     }
 
-    public void add(SelectorUnitNode unitNode) {
-        selectorUnitNodes.add(unitNode);
+    @Override
+    public SelectorUnitNode getFirst() {
+        return selectorUnitNodes.getFirst();
+    }
+
+    @Override
+    public Deque<SelectorUnitNode> getContainer() {
+        return selectorUnitNodes;
     }
 }

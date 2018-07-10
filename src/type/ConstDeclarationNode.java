@@ -1,22 +1,38 @@
 package type;
 
-import java.util.List;
+import type.base.NodeDequeContainer;
 
-public class ConstDeclarationNode extends Node {
-    public List<ConstDeclarationUnitNode> constDeclarationUnitNodes;
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class ConstDeclarationNode extends Node implements NodeDequeContainer<ConstDeclarationUnitNode> {
+    public final Deque<ConstDeclarationUnitNode> constDeclarationUnitNodes;
 
     public ConstDeclarationNode() {
-
+        this.constDeclarationUnitNodes = new ArrayDeque<>();
     }
-    public ConstDeclarationNode(List<ConstDeclarationUnitNode> constDeclarationUnitNodes) {
+    public ConstDeclarationNode(Deque<ConstDeclarationUnitNode> constDeclarationUnitNodes) {
+        if (constDeclarationUnitNodes == null) {
+            throw new IllegalArgumentException("constDeclarationUnitNodes cannot be null");
+        }
         this.constDeclarationUnitNodes = constDeclarationUnitNodes;
     }
 
-    public List<ConstDeclarationUnitNode> getConstDeclarationUnits() {
+    @Override
+    public Deque<ConstDeclarationUnitNode> getContainer() {
         return constDeclarationUnitNodes;
     }
 
-    public void add(ConstDeclarationUnitNode constDeclarationUnitNode) {
-        constDeclarationUnitNodes.add(constDeclarationUnitNode);
+    @Override
+    public void addFirst(ConstDeclarationUnitNode constDeclarationUnitNode) {
+        if (constDeclarationUnitNode == null) {
+            throw new IllegalArgumentException("constDeclarationUnitNode cannot be null");
+        }
+        constDeclarationUnitNodes.addFirst(constDeclarationUnitNode);
+    }
+
+    @Override
+    public ConstDeclarationUnitNode getFirst() {
+        return constDeclarationUnitNodes.getFirst();
     }
 }

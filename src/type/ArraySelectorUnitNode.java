@@ -1,9 +1,12 @@
 package type;
 
 public class ArraySelectorUnitNode extends SelectorUnitNode {
-    public ExpressionNode expressionNode;
+    public final ExpressionNode expressionNode;
 
     public ArraySelectorUnitNode(ExpressionNode expressionNode) {
+        if (expressionNode == null) {
+            throw new IllegalArgumentException("expressionNode cannot be null");
+        }
         this.expressionNode = expressionNode;
     }
 }

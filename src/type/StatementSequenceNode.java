@@ -1,16 +1,28 @@
 package type;
 
-import java.util.ArrayList;
-import java.util.List;
+import type.base.NodeDequeContainer;
 
-public class StatementSequenceNode extends Node {
-    public List<StatementNode> statementNodes = new ArrayList<>();
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-    public List<StatementNode> getStatements() {
-        return statementNodes;
+public class StatementSequenceNode extends Node implements NodeDequeContainer<StatementNode> {
+    public final Deque<StatementNode> statementNodes = new ArrayDeque<>();
+
+    @Override
+    public void addFirst(StatementNode statementNode) {
+        if (statementNode == null) {
+            throw new IllegalArgumentException("statementNode cannot be null");
+        }
+        statementNodes.addFirst(statementNode);
     }
 
-    public void add(StatementNode statementNode) {
-        statementNodes.add(statementNode);
+    @Override
+    public StatementNode getFirst() {
+        return statementNodes.getFirst();
+    }
+
+    @Override
+    public Deque<StatementNode> getContainer() {
+        return statementNodes;
     }
 }
