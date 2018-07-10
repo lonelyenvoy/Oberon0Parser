@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 import java.util.Deque;
 
 public class TermNode extends Node {

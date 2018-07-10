@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 public class ComparingSimpleExpressionNode extends Node {
     public final Operator operator;
     public final SimpleExpressionNode simpleExpressionNode;

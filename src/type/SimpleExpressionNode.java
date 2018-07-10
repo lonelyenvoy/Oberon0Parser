@@ -1,7 +1,8 @@
 package type;
 
+import type.base.Node;
+
 import java.util.Deque;
-import java.util.List;
 
 public class SimpleExpressionNode extends Node {
     public final Operator prefixOperator;

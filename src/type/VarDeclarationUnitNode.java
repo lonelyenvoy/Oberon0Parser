@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 public class VarDeclarationUnitNode extends Node {
     public final IdentifierListNode identifierListNode;
     public final TypeNode typeNode;

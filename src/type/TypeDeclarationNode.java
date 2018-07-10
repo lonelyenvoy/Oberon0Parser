@@ -1,5 +1,6 @@
 package type;
 
+import type.base.Node;
 import type.base.NodeDequeContainer;
 
 import java.util.ArrayDeque;

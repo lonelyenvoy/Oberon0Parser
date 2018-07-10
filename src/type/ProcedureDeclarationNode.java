@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 public class ProcedureDeclarationNode extends Node {
     public final ProcedureHeadingNode procedureHeadingNode;
     public final ProcedureBodyNode procedureBodyNode;

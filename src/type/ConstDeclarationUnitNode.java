@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 public class ConstDeclarationUnitNode extends Node {
     public final IdentifierNode identifierNode;
     public final ExpressionNode expressionNode;

@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 public class ProcedureBodyNode extends Node {
     public final DeclarationsNode declarationsNode;
     public final StatementSequenceNode beginStatementSequenceNode;

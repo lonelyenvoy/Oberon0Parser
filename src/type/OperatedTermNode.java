@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 public class OperatedTermNode extends Node {
     public final Operator operator;
     public final TermNode termNode;

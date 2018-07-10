@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 public class ConditionalStatementUnitNode extends Node {
     public final ExpressionNode expressionNode;
     public final StatementSequenceNode statementSequenceNode;

@@ -1,6 +1,6 @@
 package type;
 
-import type.base.NodeDequeContainer;
+import type.base.Node;
 
 import java.util.Deque;
 

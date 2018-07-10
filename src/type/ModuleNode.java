@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 public class ModuleNode extends Node {
     public final IdentifierNode beginIdentifierNode;
     public final DeclarationsNode declarationsNode;

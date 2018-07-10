@@ -1,5 +1,7 @@
 package type;
 
+import type.base.Node;
+
 public class ProcedureHeadingNode extends Node {
     public final IdentifierNode identifierNode;
     public final FormalParametersNode formalParametersNode;
