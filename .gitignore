@@ -128,6 +128,11 @@ Temporary Items
 out
 gen
 
+# JFlex and CUP generated files
+/src/grammar/Lexer.java
+/src/grammar/Parser.java
+/src/grammar/SymbolConstants.java
+
 # uncommon libs
 !/lib/java-cup-11b.jar
 !/lib/java-cup-11b-runtime.jar
