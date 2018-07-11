@@ -49,56 +49,56 @@ terminal LEFT_ROUND_BRACKET, RIGHT_ROUND_BRACKET, DOT, COLON;
 terminal String IDENTIFIER;
 terminal String INTEGER;
 
-non terminal ModuleNode Module;                                         // ok ok
-non terminal StatementSequenceNode ModuleBeginSection;                  // ok ok
-non terminal StatementSequenceNode StatementSequence;                   // ok ok
-non terminal DeclarationsNode Declarations;                             // ok ok
-non terminal ConstDeclarationNode ConstDeclaration;                     // ok ok
-non terminal Deque<ConstDeclarationUnitNode> ConstIdentifierDeclaration;// ok ok
-non terminal TypeDeclarationNode TypeDeclaration;                       // ok ok
-non terminal Deque<TypeDeclarationUnitNode> TypeIdentifierDeclaration;  // ok ok
-non terminal VarDeclarationNode VarDeclaration;                         // ok ok
-non terminal Deque<VarDeclarationUnitNode> VarIdentifierDeclaration;    // ok ok
-non terminal Deque<ProcedureDeclarationNode> ProcedureDeclarations;     // ok ok
-non terminal ProcedureDeclarationNode ProcedureDeclaration;             // ok ok
-non terminal ExpressionNode Expression;                                 // ok ok
-non terminal TypeNode Type;                                             // ok ok
-non terminal IdentifierListNode IdentifierList;                         // ok ok
-non terminal ProcedureHeadingNode ProcedureHeading;                     // ok ok
-non terminal ProcedureBodyNode ProcedureBody;                           // ok ok
-non terminal FormalParametersNode FormalParameters;                     // ok ok
-non terminal StatementSequenceNode ProcedureBodyBeginSection;           // ok ok
-non terminal FormalParametersNode WrappedFormalParameters;              // ok ok
-non terminal Deque<FormalParameterSectionNode> FormalParameterSections; // ok ok
-non terminal FormalParameterSectionNode FormalParameterSection;         // ok ok
-non terminal ArrayTypeNode ArrayType;                                   // ok ok
-non terminal RecordTypeNode RecordType;                                 // ok ok
-non terminal Deque<FieldListNode> FieldLists;                           // ok ok
-non terminal FieldListNode FieldList;                                   // ok ok
-non terminal IdentifierListNode Identifiers;                            // ok ok
-non terminal StatementNode Statement;                                   // ok ok
-non terminal StatementSequenceNode Statements;                          // ok ok
-non terminal AssignmentNode Assignment;                                 // ok ok
-non terminal ProcedureCallNode ProcedureCall;                           // ok ok
-non terminal IfStatementNode IfStatement;                               // ok ok
-non terminal WhileStatementNode WhileStatement;                         // ok ok
-non terminal Deque<ConditionalStatementUnitNode> ElseIfStatement;       // ok ok
-non terminal StatementSequenceNode ElseStatement;                       // ok ok
-non terminal ActualParametersNode ActualParameters;                     // ok ok
-non terminal ExpressionsNode ExpressionList;                            // ok ok
-non terminal ExpressionsNode Expressions;                               // ok ok
-non terminal SelectorNode Selector;                                     // ok ok
-non terminal SimpleExpressionNode SimpleExpression;                     // ok ok
-non terminal ComparingSimpleExpressionNode ComparingSimpleExpression;   // ok ok
-non terminal Operator ComparisonOperator;                               // ok ok
-non terminal TermNode Term;                                             // ok ok
-non terminal Operator SpecifiedOperatorI;                               // ok ok
-non terminal Deque<OperatedTermNode> TermSequence;                      // ok ok
-non terminal Operator SpecifiedOperatorII;                              // ok ok
-non terminal FactorNode Factor;                                         // ok ok
-non terminal Deque<OperatedFactorNode> FactorSequence;                  // ok ok
-non terminal Operator SpecifiedOperatorIII;                             // ok ok
-non terminal NumberNode Number;                                         // ok ok
+non terminal ModuleNode                             Module;
+non terminal StatementSequenceNode                  ModuleBeginSection;
+non terminal StatementSequenceNode                  StatementSequence;
+non terminal DeclarationsNode                       Declarations;
+non terminal ConstDeclarationNode                   ConstDeclaration;
+non terminal Deque<ConstDeclarationUnitNode>        ConstIdentifierDeclaration;
+non terminal TypeDeclarationNode                    TypeDeclaration;
+non terminal Deque<TypeDeclarationUnitNode>         TypeIdentifierDeclaration;
+non terminal VarDeclarationNode                     VarDeclaration;
+non terminal Deque<VarDeclarationUnitNode>          VarIdentifierDeclaration;
+non terminal Deque<ProcedureDeclarationNode>        ProcedureDeclarations;
+non terminal ProcedureDeclarationNode               ProcedureDeclaration;
+non terminal ExpressionNode                         Expression;
+non terminal TypeNode                               Type;
+non terminal IdentifierListNode                     IdentifierList;
+non terminal ProcedureHeadingNode                   ProcedureHeading;
+non terminal ProcedureBodyNode                      ProcedureBody;
+non terminal FormalParametersNode                   FormalParameters;
+non terminal StatementSequenceNode                  ProcedureBodyBeginSection;
+non terminal FormalParametersNode                   WrappedFormalParameters;
+non terminal Deque<FormalParameterSectionNode>      FormalParameterSections;
+non terminal FormalParameterSectionNode             FormalParameterSection;
+non terminal ArrayTypeNode                          ArrayType;
+non terminal RecordTypeNode                         RecordType;
+non terminal Deque<FieldListNode>                   FieldLists;
+non terminal FieldListNode                          FieldList;
+non terminal IdentifierListNode                     Identifiers;
+non terminal StatementNode                          Statement;
+non terminal StatementSequenceNode                  Statements;
+non terminal AssignmentNode                         Assignment;
+non terminal ProcedureCallNode                      ProcedureCall;
+non terminal IfStatementNode                        IfStatement;
+non terminal WhileStatementNode                     WhileStatement;
+non terminal Deque<ConditionalStatementUnitNode>    ElseIfStatement;
+non terminal StatementSequenceNode                  ElseStatement;
+non terminal ActualParametersNode                   ActualParameters;
+non terminal ExpressionsNode                        ExpressionList;
+non terminal ExpressionsNode                        Expressions;
+non terminal SelectorNode                           Selector;
+non terminal SimpleExpressionNode                   SimpleExpression;
+non terminal ComparingSimpleExpressionNode          ComparingSimpleExpression;
+non terminal Operator                               ComparisonOperator;
+non terminal TermNode                               Term;
+non terminal Operator                               SpecifiedOperatorI;
+non terminal Deque<OperatedTermNode>                TermSequence;
+non terminal Operator                               SpecifiedOperatorII;
+non terminal FactorNode                             Factor;
+non terminal Deque<OperatedFactorNode>              FactorSequence;
+non terminal Operator                               SpecifiedOperatorIII;
+non terminal NumberNode                             Number;
 
 
 start with Module;
