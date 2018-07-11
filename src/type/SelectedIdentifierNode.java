@@ -20,4 +20,9 @@ public class SelectedIdentifierNode extends FactorNode {
     public String toString() {
         return identifierNode.toString() + selectorNode.toString();
     }
+
+    @Override
+    public String toNormativeString() {
+        return identifierNode.toString() + selectorNode.toNormativeString();
+    }
 }

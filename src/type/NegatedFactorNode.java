@@ -14,4 +14,9 @@ public class NegatedFactorNode extends FactorNode {
     public String toString() {
         return factorNode.toString();
     }
+
+    @Override
+    public String toNormativeString() {
+        return factorNode.toNormativeString();
+    }
 }

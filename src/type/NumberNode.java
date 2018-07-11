@@ -13,4 +13,9 @@ public class NumberNode extends FactorNode {
     public String toString() {
         return number.toString();
     }
+
+    @Override
+    public String toNormativeString() {
+        return toString();
+    }
 }

@@ -12,6 +12,11 @@ public class PrioritizedExpressionNode extends FactorNode {
 
     @Override
     public String toString() {
-        return "(" + expressionNode + ")";
+        return "(" + expressionNode.toString() + ")";
+    }
+
+    @Override
+    public String toNormativeString() {
+        return "(" + expressionNode.toNormativeString() + ")";
     }
 }

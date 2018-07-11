@@ -1,8 +1,9 @@
 package type;
 
 import type.base.Node;
+import type.base.Normative;
 
-public class ExpressionNode extends Node {
+public class ExpressionNode extends Node implements Normative {
     public final SimpleExpressionNode leftSimpleExpressionNode;
     public final Operator operator;
     public final SimpleExpressionNode rightSimpleExpressionNode;
@@ -48,6 +49,21 @@ public class ExpressionNode extends Node {
                     operator.toString() +
                     " " +
                     rightSimpleExpressionNode.toString();
+        }
+    }
+
+    @Override
+    public String toNormativeString() {
+        if (isSingle) {
+            return leftSimpleExpressionNode.toNormativeString();
+        } else {
+            assert operator != null;
+            assert rightSimpleExpressionNode != null;
+            return leftSimpleExpressionNode.toNormativeString() +
+                    " " +
+                    operator.toNormativeString() +
+                    " " +
+                    rightSimpleExpressionNode.toNormativeString();
         }
     }
 }

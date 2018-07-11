@@ -1,10 +1,11 @@
 package type;
 
 import type.base.Node;
+import type.base.Normative;
 
 import java.util.Deque;
 
-public class SimpleExpressionNode extends Node {
+public class SimpleExpressionNode extends Node implements Normative {
     public final Operator prefixOperator;
     public final TermNode termNode;
     public final Deque<OperatedTermNode> operatedTermNodes;
@@ -35,9 +36,22 @@ public class SimpleExpressionNode extends Node {
         for (OperatedTermNode node : operatedTermNodes) {
             if (first) first = false;
             else builder.append(" ");
-            builder.append(node);
+            builder.append(node.toString());
         }
         return builder.toString();
     }
 
+    @Override
+    public String toNormativeString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(prefixOperator.toNormativeString());
+        builder.append(termNode.toNormativeString());
+        boolean first = true;
+        for (OperatedTermNode node : operatedTermNodes) {
+            if (first) first = false;
+            else builder.append(" ");
+            builder.append(node.toNormativeString());
+        }
+        return builder.toString();
+    }
 }

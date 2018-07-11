@@ -1,6 +1,8 @@
 package type;
 
-public class ActualParametersNode extends ExpressionsNode {
+import type.base.Normative;
+
+public class ActualParametersNode extends ExpressionsNode implements Normative {
     public ActualParametersNode() {
         super();
     }
@@ -11,15 +13,11 @@ public class ActualParametersNode extends ExpressionsNode {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("(");
-        boolean first = true;
-        for (ExpressionNode node : expressionNodes) {
-            if (first) first = false;
-            else builder.append(", ");
-            builder.append(node.toString());
-        }
-        builder.append(")");
-        return builder.toString();
+        return "(" + super.toString() + ")";
+    }
+
+    @Override
+    public String toNormativeString() {
+        return "(" + super.toNormativeString() + ")";
     }
 }

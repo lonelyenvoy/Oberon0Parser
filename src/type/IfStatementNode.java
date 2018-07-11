@@ -45,4 +45,26 @@ public class IfStatementNode extends StatementNode {
         builder.append(" END");
         return builder.toString();
     }
+
+    @Override
+    public String toNormativeString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("IF ")
+                .append(ifStatementUnitNode.expressionNode.toNormativeString())
+                .append(" THEN ")
+                .append(ifStatementUnitNode.statementSequenceNode.toNormativeString());
+
+        for (ConditionalStatementUnitNode elseIfStatementUnitNode : elseIfStatementUnitNodes) {
+            builder.append(" ELSIF ")
+                    .append(elseIfStatementUnitNode.expressionNode.toNormativeString())
+                    .append(" THEN ")
+                    .append(elseIfStatementUnitNode.statementSequenceNode.toNormativeString());
+        }
+        if (!elseStatementSequenceNode.getContainer().isEmpty()) {
+            builder.append(" ELSE ")
+                    .append(elseStatementSequenceNode.toNormativeString());
+        }
+        builder.append(" END");
+        return builder.toString();
+    }
 }

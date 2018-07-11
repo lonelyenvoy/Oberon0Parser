@@ -5,4 +5,9 @@ public class NullStatementNode extends StatementNode {
     public String toString() {
         return "";
     }
+
+    @Override
+    public String toNormativeString() {
+        return toString();
+    }
 }

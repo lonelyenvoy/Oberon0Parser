@@ -2,11 +2,12 @@ package type;
 
 import type.base.Node;
 import type.base.NodeDequeContainer;
+import type.base.Normative;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class SelectorNode extends Node implements NodeDequeContainer<SelectorUnitNode> {
+public class SelectorNode extends Node implements NodeDequeContainer<SelectorUnitNode>, Normative {
     public final Deque<SelectorUnitNode> selectorUnitNodes = new ArrayDeque<>();
 
     @Override
@@ -32,6 +33,15 @@ public class SelectorNode extends Node implements NodeDequeContainer<SelectorUni
         StringBuilder builder = new StringBuilder();
         for (SelectorUnitNode node : selectorUnitNodes) {
             builder.append(node.toString());
+        }
+        return builder.toString();
+    }
+
+    @Override
+    public String toNormativeString() {
+        StringBuilder builder = new StringBuilder();
+        for (SelectorUnitNode node : selectorUnitNodes) {
+            builder.append(node.toNormativeString());
         }
         return builder.toString();
     }

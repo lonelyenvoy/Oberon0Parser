@@ -1,10 +1,11 @@
 package type;
 
 import type.base.Node;
+import type.base.Normative;
 
 import java.util.Deque;
 
-public class TermNode extends Node {
+public class TermNode extends Node implements Normative {
     public final FactorNode factorNode;
     public final Deque<OperatedFactorNode> operatedFactorNodes;
 
@@ -28,6 +29,19 @@ public class TermNode extends Node {
             if (first) first = false;
             else builder.append(" ");
             builder.append(node.toString());
+        }
+        return builder.toString();
+    }
+
+    @Override
+    public String toNormativeString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(factorNode.toNormativeString());
+        boolean first = true;
+        for (OperatedFactorNode node : operatedFactorNodes) {
+            if (first) first = false;
+            else builder.append(" ");
+            builder.append(node.toNormativeString());
         }
         return builder.toString();
     }

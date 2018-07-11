@@ -19,4 +19,9 @@ public class AssignmentNode extends StatementNode {
     public String toString() {
         return selectedIdentifierNode.toString() + " := " + expressionNode.toString();
     }
+
+    @Override
+    public String toNormativeString() {
+        return selectedIdentifierNode.toNormativeString() + " := " + expressionNode.toNormativeString();
+    }
 }

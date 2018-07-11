@@ -1,8 +1,9 @@
 package type;
 
 import type.base.Node;
+import type.base.Normative;
 
-public class OperatedFactorNode extends Node {
+public class OperatedFactorNode extends Node implements Normative {
     public final Operator operator;
     public final FactorNode factorNode;
 
@@ -20,5 +21,10 @@ public class OperatedFactorNode extends Node {
     @Override
     public String toString() {
         return operator.toString() + " " + factorNode.toString();
+    }
+
+    @Override
+    public String toNormativeString() {
+        return operator.toNormativeString() + " " + factorNode.toNormativeString();
     }
 }

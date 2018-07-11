@@ -13,4 +13,10 @@ public class WhileStatementNode extends StatementNode {
         return "WHILE " + conditionalStatementUnitNode.expressionNode.toString()
                 + " DO " + conditionalStatementUnitNode.statementSequenceNode.toString() + " END";
     }
+
+    @Override
+    public String toNormativeString() {
+        return "WHILE " + conditionalStatementUnitNode.expressionNode.toNormativeString()
+                + " DO " + conditionalStatementUnitNode.statementSequenceNode.toNormativeString() + " END";
+    }
 }

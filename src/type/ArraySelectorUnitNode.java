@@ -14,4 +14,9 @@ public class ArraySelectorUnitNode extends SelectorUnitNode {
     public String toString() {
         return "[" + expressionNode.toString() + "]";
     }
+
+    @Override
+    public String toNormativeString() {
+        return "[" + expressionNode.toNormativeString() + "]";
+    }
 }

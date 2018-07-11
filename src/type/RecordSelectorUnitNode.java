@@ -14,4 +14,9 @@ public class RecordSelectorUnitNode extends SelectorUnitNode {
     public String toString() {
         return "." + identifierNode.toString();
     }
+
+    @Override
+    public String toNormativeString() {
+        return toString();
+    }
 }
