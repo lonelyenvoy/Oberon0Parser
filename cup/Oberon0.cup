@@ -5,14 +5,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Deque;
 import java.util.ArrayDeque;
-import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 import java_cup.runtime.Symbol;
+
 import type.*;
+import exception.parser.*;
 
 action code
 {:
-    HashMap<String, Object> identifierMap = new HashMap<>();
+    List<ParserException> exceptions = new ArrayList<>();
 :};
 
 parser code
@@ -108,6 +111,12 @@ Module                      ::= MODULE IDENTIFIER:beginIdentifier SEMICOLON Decl
                                 ModuleBeginSection:moduleBeginSection
                                 END IDENTIFIER:endIdentifier DOT
                                 {:
+                                    if (!beginIdentifier.equals(endIdentifier)) {
+                                        exceptions.add(
+                                            new InconsistentIdentifierException(
+                                            "Inconsistent module name <" + beginIdentifier + "> and <"
+                                            + endIdentifier + ">"));
+                                    }
                                     if (moduleBeginSection == null) {
                                         moduleBeginSection = new StatementSequenceNode();
                                     }
@@ -117,6 +126,9 @@ Module                      ::= MODULE IDENTIFIER:beginIdentifier SEMICOLON Decl
                                         moduleBeginSection,
                                         new IdentifierNode(endIdentifier)
                                     );
+                                    for (ParserException e : exceptions) {
+                                        e.printStackTrace();
+                                    }
                                 :}
                             ;
 ModuleBeginSection          ::= BEGIN StatementSequence:statementSequence
@@ -227,6 +239,14 @@ ProcedureDeclarations       ::= ProcedureDeclaration:procedureDeclaration
                             ;
 ProcedureDeclaration        ::= ProcedureHeading:procedureHeading SEMICOLON ProcedureBody:procedureBody
                                 {:
+                                    String beginIdentifier = procedureHeading.identifierNode.identifier;
+                                    String endIdentifier = procedureBody.endIdentifierNode.identifier;
+                                    if (!beginIdentifier.equals(endIdentifier)) {
+                                        exceptions.add(
+                                            new InconsistentIdentifierException(
+                                            "Inconsistent procedure name <" + beginIdentifier + "> and <"
+                                            + endIdentifier + ">"));
+                                    }
                                     RESULT = new ProcedureDeclarationNode(procedureHeading, procedureBody);
                                 :}
                             ;
@@ -592,6 +612,16 @@ FactorSequence              ::= SpecifiedOperatorIII:operator Factor:factor Fact
                                         factorSequence = new ArrayDeque<OperatedFactorNode>();
                                     }
                                     factorSequence.addFirst(new OperatedFactorNode(operator, factor));
+                                    RESULT = factorSequence;
+                                :}
+                            |   Factor:factor FactorSequence:factorSequence
+                                {:
+                                    exceptions.add(
+                                        new ElementMissingException("Missing operator before factor <" + factor + ">"));
+                                    if (factorSequence == null) {
+                                        factorSequence = new ArrayDeque<OperatedFactorNode>();
+                                    }
+                                    factorSequence.addFirst(new OperatedFactorNode(Operator.NONE, factor));
                                     RESULT = factorSequence;
                                 :}
                             |   // empty

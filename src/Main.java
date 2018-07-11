@@ -21,8 +21,8 @@ public class Main {
             if (filename == null)
                 throw new RuntimeException("File not specified");
             ModuleNode moduleNode = ParserAgent.parse(filename);
+            Analyzer.analyze(moduleNode);
             Visualizer.visualize(moduleNode);
-//            Analyzer.analyze(moduleNode);
         } catch (Exception e) {
             e.printStackTrace();
         }

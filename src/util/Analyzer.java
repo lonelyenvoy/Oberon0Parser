@@ -10,6 +10,7 @@ import java.util.*;
  * Oberon-0 Code Analyzer.
  * Does not support nested procedures.
  * In alpha
+ * Not fully implemented
  */
 public class Analyzer {
     public static void analyze(ModuleNode moduleNode) {
