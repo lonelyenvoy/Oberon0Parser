@@ -6,7 +6,11 @@ import type.base.Node;
 
 import java.util.*;
 
-// Analyzer does not support nested procedures.
+/**
+ * Oberon-0 Code Analyzer.
+ * Does not support nested procedures.
+ * In alpha
+ */
 public class Analyzer {
     public static void analyze(ModuleNode moduleNode) {
         Map<String, IdentifierInfo> moduleIdentifierMap = new HashMap<>();
