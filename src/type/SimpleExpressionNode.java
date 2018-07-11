@@ -32,10 +32,8 @@ public class SimpleExpressionNode extends Node implements Normative {
         StringBuilder builder = new StringBuilder();
         builder.append(prefixOperator.toString());
         builder.append(termNode.toString());
-        boolean first = true;
         for (OperatedTermNode node : operatedTermNodes) {
-            if (first) first = false;
-            else builder.append(" ");
+            builder.append(" ");
             builder.append(node.toString());
         }
         return builder.toString();
@@ -46,10 +44,8 @@ public class SimpleExpressionNode extends Node implements Normative {
         StringBuilder builder = new StringBuilder();
         builder.append(prefixOperator.toNormativeString());
         builder.append(termNode.toNormativeString());
-        boolean first = true;
         for (OperatedTermNode node : operatedTermNodes) {
-            if (first) first = false;
-            else builder.append(" ");
+            builder.append(" ");
             builder.append(node.toNormativeString());
         }
         return builder.toString();
