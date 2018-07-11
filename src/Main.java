@@ -1,3 +1,5 @@
+import type.ModuleNode;
+import util.Analyzer;
 import util.ParserAgent;
 import util.Visualizer;
 
@@ -18,7 +20,9 @@ public class Main {
             }
             if (filename == null)
                 throw new RuntimeException("File not specified");
-            Visualizer.visualize(ParserAgent.parse(filename));
+            ModuleNode moduleNode = ParserAgent.parse(filename);
+            Visualizer.visualize(moduleNode);
+//            Analyzer.analyze(moduleNode);
         } catch (Exception e) {
             e.printStackTrace();
         }
