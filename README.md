@@ -26,35 +26,7 @@ module Sort;
             end;
         end length;
 
-    (* Swap two integers. *)
-    procedure swap(var a: integer; var b: integer);
-        var
-            temp: integer;
-        begin
-            temp := a;
-            a := b;
-            b := temp;
-        end swap;
-
-    (* Do bubble sort on an array. *)
-    procedure bubbleSort(var a: array 100 of integer);
-        var
-            n, swapped, i: integer;
-        begin
-            length(A, -1, n);
-            swapped := 1;
-            i := 0;
-            while swapped = 1 do
-                swapped := 0;
-                while i < n do
-                    if a[i-1] > a[i] then
-                        swap(a[i-1], a[i]);
-                        swapped := 1
-                    end;
-                    i := i + 1
-                end
-            end;
-        end bubbleSort;
+    (* ... *)
 
 end Sort.
 ```
