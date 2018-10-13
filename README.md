@@ -11,7 +11,7 @@ Oberon-0语言逆向分析工具
 module Sort;
 
     (* ... *)
-    
+
     (* Do bubble sort on an array. *)
     procedure bubbleSort(var a: array 100 of integer);
         var
@@ -46,13 +46,13 @@ java Main -f ./samples/sort.obr
 
 ## 目录结构
 
-flex: JFlex词法分析定义文件
-cup: JavaCUP语法分析定义文件
-src: 逆向分析器Java代码
-samples: Oberon-0示例代码
-deployment: 部署脚本
-lib: 项目依赖包
-resources: README展示所需的资源文件
+- flex: JFlex词法分析定义文件
+- cup: JavaCUP语法分析定义文件
+- src: 逆向分析器Java代码
+- samples: Oberon-0示例代码
+- deployment: 部署脚本
+- lib: 项目依赖包
+- resources: README展示所需的资源文件
 
 ## 项目展示
 
