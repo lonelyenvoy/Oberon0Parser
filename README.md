@@ -40,6 +40,8 @@ end Sort.
 ## 使用方法
 
 ```bash
+git clone https://github.com/lonelyenvoy/Oberon0Parser.git
+cd Oberon0Parser
 ./deployment/build.sh
 java Main -f ./samples/sort.obr
 ```
